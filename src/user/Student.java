@@ -9,9 +9,14 @@ package user;
  */
 public class Student extends User {
 	private int studentID;
-	private int year;
+	private int year; //1 - freshman , 2 - sophomore...
 	
-	
+	//this constructor is used just to create a mock student
+	public Student(int a) {
+		super("Billy", "Madison", "bmads123", "happygilmore@gmail.com");
+		setStudentID(1001);
+		setYear(2);
+	}
 	
 	/**
 	 * @param studentID
@@ -25,16 +30,14 @@ public class Student extends User {
 	/**
 	 * @param firstName
 	 * @param lastName
-	 * @param role
 	 * @param username
-	 * @param password
 	 * @param email
 	 * @param studentID
 	 * @param year
 	 */
-	public Student(String firstName, String lastName, String role, String username, String password, String email,
+	public Student(String firstName, String lastName, String username, String email,
 			int studentID, int year) {
-		super(firstName, lastName, role, username, password, email);
+		super(firstName, lastName, username, email);
 		setStudentID(studentID);
 		setYear(year);
 	}
@@ -61,6 +64,18 @@ public class Student extends User {
 	 */
 	public void setYear(int year) {
 		this.year = year;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Student: " + getFirstName() + " " + getLastName() + "\n"
+				+ "StudentID: " + getStudentID() + "\n"
+				+ "Year: " + getYear() + "\n"
+				+ "UserName: " + getUserName() + "\n"
+				+ "Email: " + getEmail();
 	}
 	
 	

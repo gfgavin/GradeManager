@@ -20,9 +20,7 @@ email		VARCHAR(35)
 	
 	private String firstName;
 	private String lastName;
-	private String role;
-	private String username;
-	private String password;
+	private String userName;
 	private String email;
 	
 	
@@ -32,26 +30,19 @@ email		VARCHAR(35)
 	public User() {
 		setFirstName("");
 		setLastName("");
-		setRole("");
-		setUsername("");
-		setPassword("");
+		setUserName("");
 		setEmail("");
 	}
 	
 	/**
 	 * @param firstName
 	 * @param lastName
-	 * @param role
-	 * @param username
-	 * @param password
 	 * @param email
 	 */
-	public User(String firstName, String lastName, String role, String username, String password, String email) {
+	public User(String firstName, String lastName, String userName, String email) {
 		setFirstName(firstName);
 		setLastName(lastName);
-		setRole(role);
-		setUsername(username);
-		setPassword(password);
+		setUserName(userName);
 		setEmail(email);
 	}
 	/**
@@ -67,22 +58,10 @@ email		VARCHAR(35)
 		return lastName;
 	}
 	/**
-	 * @return the role
+	 * @return the userName
 	 */
-	public String getRole() {
-		return role;
-	}
-	/**
-	 * @return the username
-	 */
-	public String getUsername() {
-		return username;
-	}
-	/**
-	 * @return the password
-	 */
-	public String getPassword() {
-		return password;
+	public String getUserName() {
+		return userName;
 	}
 	/**
 	 * @return the email
@@ -103,22 +82,10 @@ email		VARCHAR(35)
 		this.lastName = lastName;
 	}
 	/**
-	 * @param role the role to set
+	 * @param userName the userName to set
 	 */
-	public void setRole(String role) {
-		this.role = role;
-	}
-	/**
-	 * @param username the username to set
-	 */
-	public void setUsername(String username) {
-		this.username = username;
-	}
-	/**
-	 * @param password the password to set
-	 */
-	public void setPassword(String password) {
-		this.password = password;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 	/**
 	 * @param email the email to set

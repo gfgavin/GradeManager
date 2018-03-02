@@ -1,9 +1,9 @@
 /**
  * 
  */
-package classes;
+package course;
 
-import java.sql.Date;
+import java.util.Date;
 
 /**
  * @author owner
@@ -34,7 +34,7 @@ dueDate	DATE
 		setTitle("");
 		setDescription("");
 		setWeight(0);
-		setDueDate(new Date(1, 1, 2011));
+		setDueDate(new Date());
 	}
 
 	/**

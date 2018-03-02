@@ -11,7 +11,12 @@ public class Teacher extends User {
 	private int teacherID;
 	private String specialty;
 	
-	
+	//this constructor is used just to create a mock teacher
+	public Teacher(int a) {
+		super("John", "Smith", "jsmith2018", "jsm@students.uwf.edu");
+		setTeacherID(101);
+		setSpecialty("Science");
+	}
 	
 	/**
 	 * @param teacherID
@@ -25,16 +30,14 @@ public class Teacher extends User {
 	/**
 	 * @param firstName
 	 * @param lastName
-	 * @param role
 	 * @param username
-	 * @param password
 	 * @param email
 	 * @param teacherID
 	 * @param specialty
 	 */
-	public Teacher(String firstName, String lastName, String role, String username, String password, String email,
+	public Teacher(String firstName, String lastName, String username, String email,
 			int teacherID, String specialty) {
-		super(firstName, lastName, role, username, password, email);
+		super(firstName, lastName, username, email);
 		setTeacherID(teacherID);
 		setSpecialty(specialty);
 	}
@@ -62,6 +65,16 @@ public class Teacher extends User {
 	public void setSpecialty(String specialty) {
 		this.specialty = specialty;
 	}
-	
-	
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Teacher: " + getFirstName() + " " + getLastName() + "\n"
+				+ "TeacherID: " + getTeacherID() + "\n"
+				+ "Specialty: " + getSpecialty() + "\n"
+				+ "UserName: " + getUserName() + "\n"
+				+ "Email: " + getEmail();
+	}
 }
