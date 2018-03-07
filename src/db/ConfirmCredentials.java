@@ -3,6 +3,7 @@ import java.util.Scanner;
 import java.io.*;
 import javax.swing.*;
 
+import controllers.DefaultController;
 import gui.*;
 import user.*;
 
@@ -17,8 +18,10 @@ public class ConfirmCredentials
 		//For now, we will use these placeholder logins.
 		if (username.equals("admin"))
 		{
-			AdminActionCenter.display(new Administrator(1));
+			DefaultController.init();
+			AdminActionCenter.display();
 		}
+		//need to refactor teacher and student so that gui code does not have user objects
 		else if (username.equals("teacher"))
 		{
 			TeacherActionCenter.display(new Teacher(1));

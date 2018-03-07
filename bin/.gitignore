@@ -1,8 +1,3 @@
-/classes/
-/user/
-/gui/
-/classroom/
-/course/
-/main/
-/utilities/
+/controllers/
 /db/
+/gui/

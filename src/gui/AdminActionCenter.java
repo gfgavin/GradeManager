@@ -1,9 +1,10 @@
 package gui;
 
-import user.Administrator;
 import java.util.Scanner;
 import java.io.*;
 import javax.swing.*;
+
+import controllers.DefaultController;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -12,7 +13,7 @@ import java.awt.event.ActionListener;
 public class AdminActionCenter
 {
 
-	public static void display(Administrator theAdministrator)
+	public static void display()
 	{		
 		/*
 		 * Administrator Action Center
@@ -46,7 +47,7 @@ public class AdminActionCenter
 
 		 */	
 	
-		JFrame adminFrame = new JFrame("Welcome, " + theAdministrator.getFirstName() + "!");		
+		JFrame adminFrame = new JFrame("Welcome, " + DefaultController.adminFirstName() + "!");		
 		
 		JButton enrollButton= new JButton("Enroll Student in Class"); 
 		enrollButton.setBounds(0,0,385,30);
@@ -128,7 +129,7 @@ public class AdminActionCenter
 	        }  
 	    }); 
 	    
-	    JTextArea bottomText = new JTextArea(theAdministrator.toString());
+	    JTextArea bottomText = new JTextArea(DefaultController.adminToString());
 	    bottomText.setBounds(0, 300, 385, 100);
 	    bottomText.setEditable(false);
 
