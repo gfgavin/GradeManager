@@ -4,6 +4,7 @@ import java.util.Scanner;
 import java.io.*;
 import javax.swing.*;
 
+import controllers.DefaultController;
 import user.Student;
 
 import java.awt.*;
@@ -11,11 +12,11 @@ import java.awt.*;
 public class StudentActionCenter
 {
 
-	public static void display(Student theStudent)
+	public static void display()
 	{
-		JFrame frame = new JFrame("Welcome, " + theStudent.getFirstName() + "!");
+		JFrame frame = new JFrame("Welcome, " + DefaultController.studentFirstName() + "!");
 		
-		JTextArea text = new JTextArea(theStudent.toString());
+		JTextArea text = new JTextArea(DefaultController.studentToString());
 	    text.setBounds(0, 0, 400, 400);
 	    text.setEditable(false);
 
