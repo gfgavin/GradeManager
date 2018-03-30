@@ -5,22 +5,17 @@ package course;
 
 import java.util.ArrayList;
 
+import user.Teacher;
+
 /**
  * @author owner
  *
  */
 public class Course {
-	/*
-	 * classID	INT(5)
-title		VARCHAR(35)
-time		VARCHAR(20)
-announcement	VARCHAR(50)
-teacherID	INT(5)
-	 */
-	private int courseID;
-	private String title;
+	private int courseID = -1;
+	private String coursename;
 	private String time;
-	private String announcement;
+	private Teacher teacher;
 	private ArrayList<Assignment> assignmentList;
 	
 	
@@ -28,26 +23,24 @@ teacherID	INT(5)
 	 * 
 	 */
 	public Course() {
-		setCourseID(-1);
-		setTitle("");
+		setCoursename("");
 		setTime("");
-		setAnnouncement("");
+		setTeacher(new Teacher());
 		setAssignmentList(new ArrayList<Assignment>());
 	}
 
 
 	/**
 	 * @param courseID
-	 * @param title
+	 * @param coursename
 	 * @param time
 	 * @param announcement
 	 * @param assignmentList
 	 */
-	public Course(int courseID, String title, String time, String announcement, ArrayList<Assignment> assignmentList) {
+	public Course(int courseID, String coursename, String time, Teacher teacher, ArrayList<Assignment> assignmentList) {
 		setCourseID(courseID);
-		setTitle(title);
+		setCoursename(coursename);
 		setTime(time);
-		setAnnouncement(announcement);
 		setAssignmentList(assignmentList);
 	}
 
@@ -63,8 +56,8 @@ teacherID	INT(5)
 	/**
 	 * @return the title
 	 */
-	public String getTitle() {
-		return title;
+	public String getCoursename() {
+		return coursename;
 	}
 
 
@@ -77,18 +70,18 @@ teacherID	INT(5)
 
 
 	/**
-	 * @return the announcement
-	 */
-	public String getAnnouncement() {
-		return announcement;
-	}
-
-
-	/**
 	 * @return the assignmentList
 	 */
 	public ArrayList<Assignment> getAssignmentList() {
 		return assignmentList;
+	}
+
+
+	/**
+	 * @return the teacher
+	 */
+	public Teacher getTeacher() {
+		return teacher;
 	}
 
 
@@ -103,8 +96,8 @@ teacherID	INT(5)
 	/**
 	 * @param title the title to set
 	 */
-	public void setTitle(String title) {
-		this.title = title;
+	public void setCoursename(String title) {
+		this.coursename = title;
 	}
 
 
@@ -117,18 +110,40 @@ teacherID	INT(5)
 
 
 	/**
-	 * @param announcement the announcement to set
-	 */
-	public void setAnnouncement(String announcement) {
-		this.announcement = announcement;
-	}
-
-
-	/**
 	 * @param assignmentList the assignmentList to set
 	 */
 	public void setAssignmentList(ArrayList<Assignment> assignmentList) {
 		this.assignmentList = assignmentList;
+	}
+
+
+	/**
+	 * @param teacher the teacher to set
+	 */
+	public void setTeacher(Teacher teacher) {
+		this.teacher = teacher;
+	}
+	
+	public String assignmentListToString()
+	{
+		String assignListString = "";
+		for(Assignment a : getAssignmentList())
+		{
+			assignListString += a + "\n";
+		}
+		return assignListString;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Course: " + getCoursename() + "\n"
+				+ "CourseID: " + getCourseID() + "\n"
+				+ "Time: " + getTime() + "\n"
+				+ "Teacher: " + getTeacher().getFirstName() + " " + getTeacher().getLastName() + "\n"
+				+ "Assignments: " + assignmentListToString();
 	}
 	
 	

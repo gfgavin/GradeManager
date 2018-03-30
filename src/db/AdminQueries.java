@@ -6,16 +6,39 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import user.Administrator;
+
 public class AdminQueries {
 	private static Connection connection = null;
 	private static PreparedStatement pstmt = null;
 	private static ResultSet rs = null;
 
+	public static Administrator getAdmin(String username) {
+		Administrator admin = new Administrator();
+		try {
+			connection = DriverManager.getConnection(DBInfo.URL, DBInfo.USER, DBInfo.PASSWORD);
+			pstmt = connection.prepareStatement("SELECT * FROM Admin WHERE userlogin  = '" + username + "'");
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				admin.setAdminId(rs.getInt("adminid"));
+				admin.setFirstName(rs.getString("firstname"));
+				admin.setLastName(rs.getString("lastname"));
+				admin.setUserName(rs.getString("userlogin"));
+			}
+
+		} catch (SQLException e) {
+			System.out.println("nope - query was not successful. reason:");
+			System.out.println(e.getMessage());
+		} finally {
+			closeConnection();
+		}
+		return admin;
+	}
+
 	public static void createTeacher(String firstname, String lastname, String userlogin, String userpass) {
 		try {
-			connection = DriverManager.getConnection(
-					"jdbc:mysql://capstone.clsnwlfmobom.us-east-2.rds.amazonaws.com:3306/CapstoneDB", "team1capstone",
-					"team1pass");
+			connection = DriverManager.getConnection(DBInfo.URL, DBInfo.USER, DBInfo.PASSWORD);
 			pstmt = connection.prepareStatement(
 					"INSERT INTO Teacher (firstname, lastname, userlogin, userpass) VALUES (?,?,?,?)");
 			pstmt.setString(1, firstname);
@@ -33,9 +56,7 @@ public class AdminQueries {
 
 	public static void createStudent(String firstname, String lastname, String userlogin, String userpass) {
 		try {
-			connection = DriverManager.getConnection(
-					"jdbc:mysql://capstone.clsnwlfmobom.us-east-2.rds.amazonaws.com:3306/CapstoneDB", "team1capstone",
-					"team1pass");
+			connection = DriverManager.getConnection(DBInfo.URL, DBInfo.USER, DBInfo.PASSWORD);
 			pstmt = connection.prepareStatement(
 					"INSERT INTO Student (firstname, lastname, userlogin, userpass) VALUES (?,?,?,?)");
 			pstmt.setString(1, firstname);
@@ -51,13 +72,11 @@ public class AdminQueries {
 		}
 	}
 
-	public static void createClass(String classname, String time) {
+	public static void createCourse(String coursename, String time) {
 		try {
-			connection = DriverManager.getConnection(
-					"jdbc:mysql://capstone.clsnwlfmobom.us-east-2.rds.amazonaws.com:3306/CapstoneDB", "team1capstone",
-					"team1pass");
-			pstmt = connection.prepareStatement("INSERT INTO Class (classname, time, teacherid) VALUES (?,?,?)");
-			pstmt.setString(1, classname);
+			connection = DriverManager.getConnection(DBInfo.URL, DBInfo.USER, DBInfo.PASSWORD);
+			pstmt = connection.prepareStatement("INSERT INTO Course (coursename, time, teacherid) VALUES (?,?,?)");
+			pstmt.setString(1, coursename);
 			pstmt.setString(2, time);
 			pstmt.setString(3, null);
 			pstmt.executeUpdate();
@@ -71,9 +90,7 @@ public class AdminQueries {
 
 	public static void removeTeacher(int teacherid) {
 		try {
-			connection = DriverManager.getConnection(
-					"jdbc:mysql://capstone.clsnwlfmobom.us-east-2.rds.amazonaws.com:3306/CapstoneDB", "team1capstone",
-					"team1pass");
+			connection = DriverManager.getConnection(DBInfo.URL, DBInfo.USER, DBInfo.PASSWORD);
 			pstmt = connection.prepareStatement("DELETE FROM Teacher WHERE teacherid = " + teacherid);
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -86,9 +103,7 @@ public class AdminQueries {
 
 	public static void removeStudent(int studentid) {
 		try {
-			connection = DriverManager.getConnection(
-					"jdbc:mysql://capstone.clsnwlfmobom.us-east-2.rds.amazonaws.com:3306/CapstoneDB", "team1capstone",
-					"team1pass");
+			connection = DriverManager.getConnection(DBInfo.URL, DBInfo.USER, DBInfo.PASSWORD);
 			pstmt = connection.prepareStatement("DELETE FROM Student WHERE studentid = " + studentid);
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -99,12 +114,10 @@ public class AdminQueries {
 		}
 	}
 
-	public static void removeClass(int classid) {
+	public static void removeCourse(int courseid) {
 		try {
-			connection = DriverManager.getConnection(
-					"jdbc:mysql://capstone.clsnwlfmobom.us-east-2.rds.amazonaws.com:3306/CapstoneDB", "team1capstone",
-					"team1pass");
-			pstmt = connection.prepareStatement("DELETE FROM Class WHERE classid = " + classid);
+			connection = DriverManager.getConnection(DBInfo.URL, DBInfo.USER, DBInfo.PASSWORD);
+			pstmt = connection.prepareStatement("DELETE FROM Course WHERE courseid = " + courseid);
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			System.out.println("nope - query was not successful. reason:");
@@ -114,13 +127,11 @@ public class AdminQueries {
 		}
 	}
 
-	public static void addTeacherToClass(int classid, int teacherid) {
+	public static void addTeacherToCourse(int courseid, int teacherid) {
 		try {
-			connection = DriverManager.getConnection(
-					"jdbc:mysql://capstone.clsnwlfmobom.us-east-2.rds.amazonaws.com:3306/CapstoneDB", "team1capstone",
-					"team1pass");
+			connection = DriverManager.getConnection(DBInfo.URL, DBInfo.USER, DBInfo.PASSWORD);
 			pstmt = connection
-					.prepareStatement("UPDATE Class SET teacherid = " + teacherid + " WHERE classid = " + classid);
+					.prepareStatement("UPDATE Course SET teacherid = " + teacherid + " WHERE courseid = " + courseid);
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			System.out.println("nope - query was not successful. reason:");
@@ -130,12 +141,11 @@ public class AdminQueries {
 		}
 	}
 
-	public static void removeTeacherFromClass(int classid) {
+	public static void removeTeacherFromCourse(int courseid) {
 		try {
-			connection = DriverManager.getConnection(
-					"jdbc:mysql://capstone.clsnwlfmobom.us-east-2.rds.amazonaws.com:3306/CapstoneDB", "team1capstone",
-					"team1pass");
-			pstmt = connection.prepareStatement("UPDATE Class SET teacherid = " + null + " WHERE classid = " + classid);
+			connection = DriverManager.getConnection(DBInfo.URL, DBInfo.USER, DBInfo.PASSWORD);
+			pstmt = connection
+					.prepareStatement("UPDATE Course SET teacherid = " + null + " WHERE courseid = " + courseid);
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			System.out.println("nope - query was not successful. reason:");
@@ -145,12 +155,10 @@ public class AdminQueries {
 		}
 	}
 
-	public static void enrollStudentInClass(int studentid, int classid) {
+	public static void enrollStudentInCourse(int studentid, int courseid) {
 		try {
-			connection = DriverManager.getConnection(
-					"jdbc:mysql://capstone.clsnwlfmobom.us-east-2.rds.amazonaws.com:3306/CapstoneDB", "team1capstone",
-					"team1pass");
-			pstmt = connection.prepareStatement("INSERT INTO StudentClass VALUES (" + studentid + ", " + classid + ")");
+			connection = DriverManager.getConnection(DBInfo.URL, DBInfo.USER, DBInfo.PASSWORD);
+			pstmt = connection.prepareStatement("INSERT INTO StudentCourse VALUES (" + studentid + ", " + courseid + ")");
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			System.out.println("nope - query was not successful. reason:");
@@ -160,13 +168,11 @@ public class AdminQueries {
 		}
 	}
 
-	public static void dropStudentFromClass(int studentid, int classid) {
+	public static void dropStudentFromCourse(int studentid, int courseid) {
 		try {
-			connection = DriverManager.getConnection(
-					"jdbc:mysql://capstone.clsnwlfmobom.us-east-2.rds.amazonaws.com:3306/CapstoneDB", "team1capstone",
-					"team1pass");
+			connection = DriverManager.getConnection(DBInfo.URL, DBInfo.USER, DBInfo.PASSWORD);
 			pstmt = connection.prepareStatement(
-					"DELETE FROM StudentClass WHERE studentid = " + studentid + " AND classid = " + classid);
+					"DELETE FROM StudentCourse WHERE studentid = " + studentid + " AND courseid = " + courseid);
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			System.out.println("nope - query was not successful. reason:");

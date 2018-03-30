@@ -1,7 +1,5 @@
-/controllers/
-/course/
 /db/
-/gui/
 /main/
+/course/
 /user/
-/utilities/
+/controllers/

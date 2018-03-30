@@ -19,11 +19,19 @@ public class Capstone
 	//---------------------------------MAIN----------------------------------------
 	public static void main(String[] args) throws IOException
 	{
+		/*
+		 * uncomment 'welcomescreen();' to run program normally.
+		 * For development and testing purposes, I'm running another method
+		 */
+		TestFunctionsWithoutGUI program = new TestFunctionsWithoutGUI();
+		program.test();
+		
+		
 		//Allowing keyboard input.
-		Scanner keyboard = new Scanner(System.in);
+		//Scanner keyboard = new Scanner(System.in);
 		
 		//Welcome Screen
-		welcomeScreen();
+		//welcomeScreen();
 		
 		/*
 		 * to launch an action center directly, comment out welcomeScreen() above,

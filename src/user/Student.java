@@ -8,14 +8,11 @@ package user;
  *
  */
 public class Student extends User {
-	private int studentID;
-	private int year; //1 - freshman , 2 - sophomore...
+	private int studentID = -1;
 	
 	//this constructor is used just to create a mock student
 	public Student(int a) {
-		super("Billy", "Madison", "bmads123", "happygilmore@gmail.com");
-		setStudentID(1001);
-		setYear(2);
+		super("Billy", "Madison", "bmads123");
 	}
 	
 	/**
@@ -24,22 +21,15 @@ public class Student extends User {
 	 */
 	public Student() {
 		super();
-		setStudentID(-1);
-		setYear(-1);
 	}
 	/**
 	 * @param firstName
 	 * @param lastName
-	 * @param username
-	 * @param email
-	 * @param studentID
-	 * @param year
+	 * @param userName
 	 */
-	public Student(String firstName, String lastName, String username, String email,
-			int studentID, int year) {
-		super(firstName, lastName, username, email);
-		setStudentID(studentID);
-		setYear(year);
+	public Student(int studentId, String firstName, String lastName, String userName) {
+		super(firstName, lastName, userName);
+		setStudentID(studentId);
 	}
 	/**
 	 * @return the studentID
@@ -48,22 +38,10 @@ public class Student extends User {
 		return studentID;
 	}
 	/**
-	 * @return the year
-	 */
-	public int getYear() {
-		return year;
-	}
-	/**
 	 * @param studentID the studentID to set
 	 */
 	public void setStudentID(int studentID) {
 		this.studentID = studentID;
-	}
-	/**
-	 * @param year the year to set
-	 */
-	public void setYear(int year) {
-		this.year = year;
 	}
 
 	/* (non-Javadoc)
@@ -73,9 +51,7 @@ public class Student extends User {
 	public String toString() {
 		return "Student: " + getFirstName() + " " + getLastName() + "\n"
 				+ "StudentID: " + getStudentID() + "\n"
-				+ "Year: " + getYear() + "\n"
-				+ "UserName: " + getUserName() + "\n"
-				+ "Email: " + getEmail();
+				+ "UserName: " + getUserName();
 	}
 	
 	

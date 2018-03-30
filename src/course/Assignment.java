@@ -3,38 +3,25 @@
  */
 package course;
 
-import java.util.Date;
+import user.Student;
 
 /**
  * @author owner
  *
  */
 public class Assignment {
-	/*
-	 * assignmentID	INT(10)	
-title		VARCHAR(20)
-description	VARCHAR(50)
-weight		INT(2)
-dueDate	DATE
-	 */
 	
-	private int assignmentID;
+	private int assignmentID = -1;
 	private String title;
-	private String description;
-	private int weight;
-	private Date dueDate;
-	
-	
+	private Student student;
+	private int grade = -1;
 	
 	/**
 	 * 
 	 */
 	public Assignment() {
-		setAssignmentID(0);
 		setTitle("");
-		setDescription("");
-		setWeight(0);
-		setDueDate(new Date());
+		setStudent(new Student());
 	}
 
 	/**
@@ -44,12 +31,10 @@ dueDate	DATE
 	 * @param weight
 	 * @param dueDate
 	 */
-	public Assignment(int assignmentID, String title, String description, int weight, Date dueDate) {
+	public Assignment(int assignmentID, String title, Student student) {
 		setAssignmentID(assignmentID);
 		setTitle(title);
-		setDescription(description);
-		setWeight(weight);
-		setDueDate(dueDate);
+		setStudent(student);
 	}
 	
 	/**
@@ -64,23 +49,19 @@ dueDate	DATE
 	public String getTitle() {
 		return title;
 	}
+
 	/**
-	 * @return the description
+	 * @return the student
 	 */
-	public String getDescription() {
-		return description;
+	public Student getStudent() {
+		return student;
 	}
+
 	/**
-	 * @return the weight
+	 * @return the grade
 	 */
-	public int getWeight() {
-		return weight;
-	}
-	/**
-	 * @return the dueDate
-	 */
-	public Date getDueDate() {
-		return dueDate;
+	public int getGrade() {
+		return grade;
 	}
 	/**
 	 * @param assignmentID the assignmentID to set
@@ -94,23 +75,30 @@ dueDate	DATE
 	public void setTitle(String title) {
 		this.title = title;
 	}
+
 	/**
-	 * @param description the description to set
+	 * @param student the student to set
 	 */
-	public void setDescription(String description) {
-		this.description = description;
+	public void setStudent(Student student) {
+		this.student = student;
 	}
+
 	/**
-	 * @param weight the weight to set
+	 * @param grade the grade to set
 	 */
-	public void setWeight(int weight) {
-		this.weight = weight;
+	public void setGrade(int grade) {
+		this.grade = grade;
 	}
-	/**
-	 * @param dueDate the dueDate to set
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
 	 */
-	public void setDueDate(Date dueDate) {
-		this.dueDate = dueDate;
+	@Override
+	public String toString() {
+		return "Assignment: " + getTitle() + "\n"
+				+ "AssignmentID: " + getAssignmentID() + "\n"
+				+ "Student: " + getStudent() + "\n"
+				+ "Grade: " + getGrade();
 	}
 	
 	
