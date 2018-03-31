@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import user.Administrator;
 
@@ -160,6 +161,25 @@ public class AdminQueries {
 			connection = DriverManager.getConnection(DBInfo.URL, DBInfo.USER, DBInfo.PASSWORD);
 			pstmt = connection.prepareStatement("INSERT INTO StudentCourse VALUES (" + studentid + ", " + courseid + ")");
 			pstmt.executeUpdate();
+			
+			//get the assignments from the course
+			pstmt = connection.prepareStatement("SELECT assignmentid FROM Assignment WHERE courseid = " + courseid);
+			rs = pstmt.executeQuery();
+			ArrayList<Integer> assignmentidlist = new ArrayList<Integer>();
+			while(rs.next())
+			{
+				assignmentidlist.add(rs.getInt("assignmentid"));
+			}
+			
+			//add entries for each of the assignments for the student
+			for(int assignmentid : assignmentidlist)
+			{
+				pstmt = connection.prepareStatement(
+						"INSERT INTO StudentAssignment (studentid, assignmentid) VALUES (?, ?)");
+				pstmt.setInt(1, studentid);
+				pstmt.setInt(2, assignmentid);
+				pstmt.executeUpdate();
+			}
 		} catch (SQLException e) {
 			System.out.println("nope - query was not successful. reason:");
 			System.out.println(e.getMessage());
@@ -174,6 +194,25 @@ public class AdminQueries {
 			pstmt = connection.prepareStatement(
 					"DELETE FROM StudentCourse WHERE studentid = " + studentid + " AND courseid = " + courseid);
 			pstmt.executeUpdate();
+			
+			//get the assignments from the course
+			pstmt = connection.prepareStatement("SELECT assignmentid FROM Assignment WHERE courseid = " + courseid);
+			rs = pstmt.executeQuery();
+			ArrayList<Integer> assignmentidlist = new ArrayList<Integer>();
+			while(rs.next())
+			{
+				assignmentidlist.add(rs.getInt("assignmentid"));
+			}
+			
+			//remove entries for each of the assignments for the student
+			for(int assignmentid : assignmentidlist)
+			{
+				pstmt = connection.prepareStatement(
+						"DELETE FROM StudentAssignment WHERE studentid = ? AND assignmentid = ?");
+				pstmt.setInt(1, studentid);
+				pstmt.setInt(2, assignmentid);
+				pstmt.executeUpdate();
+			}
 		} catch (SQLException e) {
 			System.out.println("nope - query was not successful. reason:");
 			System.out.println(e.getMessage());
