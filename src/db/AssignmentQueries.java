@@ -166,6 +166,22 @@ public class AssignmentQueries {
 		}
 	}
 	
+
+	public static void deleteAssignment(int assignmentid)
+	{
+		try {
+			connection = DriverManager.getConnection(DBInfo.URL, DBInfo.USER, DBInfo.PASSWORD);
+			pstmt = connection
+					.prepareStatement("DELETE FROM Assignment WHERE assignmentid = " + assignmentid);
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("nope - query was not successful. reason:");
+			System.out.println(e.getMessage());
+		} finally {
+			closeConnection();
+		}
+	}
+	
 	public static void gradeAssignment(int studentid, int assignmentid, int grade)
 	{
 		try {

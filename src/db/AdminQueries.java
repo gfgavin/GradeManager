@@ -89,7 +89,7 @@ public class AdminQueries {
 		}
 	}
 
-	public static void removeTeacher(int teacherid) {
+	public static void deleteTeacher(int teacherid) {
 		try {
 			connection = DriverManager.getConnection(DBInfo.URL, DBInfo.USER, DBInfo.PASSWORD);
 			pstmt = connection.prepareStatement("DELETE FROM Teacher WHERE teacherid = " + teacherid);
@@ -102,7 +102,7 @@ public class AdminQueries {
 		}
 	}
 
-	public static void removeStudent(int studentid) {
+	public static void deleteStudent(int studentid) {
 		try {
 			connection = DriverManager.getConnection(DBInfo.URL, DBInfo.USER, DBInfo.PASSWORD);
 			pstmt = connection.prepareStatement("DELETE FROM Student WHERE studentid = " + studentid);
@@ -115,7 +115,7 @@ public class AdminQueries {
 		}
 	}
 
-	public static void removeCourse(int courseid) {
+	public static void deleteCourse(int courseid) {
 		try {
 			connection = DriverManager.getConnection(DBInfo.URL, DBInfo.USER, DBInfo.PASSWORD);
 			pstmt = connection.prepareStatement("DELETE FROM Course WHERE courseid = " + courseid);
