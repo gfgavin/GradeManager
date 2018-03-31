@@ -108,8 +108,80 @@ public class AssignmentQueries {
 	}
 	
 	
-	
+	/**
+	 * create an assignment with the given title for the given course in the "Assignment" table, 
+	 * and create entries for each of the students in the course in the "StudentAssignment" table
+	 * 
+	 * @param courseid
+	 * @param title
+	 */
+	public static void createAssignment(int courseid, String title) {
+		try {
+			connection = DriverManager.getConnection(DBInfo.URL, DBInfo.USER, DBInfo.PASSWORD);
+			pstmt = connection.prepareStatement(
+					"INSERT INTO Assignment (courseid, title) VALUES (?, ?)");
+			pstmt.setInt(1, courseid);
+			pstmt.setString(2, title);
+			pstmt.executeUpdate();
+			pstmt.close();
+			
+			//get the assignmentid of the newly added assignment
+			pstmt = connection.prepareStatement(
+					"SELECT assignmentid FROM Assignment WHERE courseid = " + courseid + " AND title = '" + title + "'");
+			rs = pstmt.executeQuery();
+			int assignmentid = -1;
+			while(rs.next())
+			{
+				assignmentid = rs.getInt("assignmentid");
+			}
+			pstmt.close();
+			rs.close();
+			
+			//get list of students enrolled in the course
+			pstmt = connection.prepareStatement(
+					"SELECT * FROM StudentCourse WHERE courseid = " + courseid);
+			rs = pstmt.executeQuery();
+			ArrayList<Integer> studentidlist = new ArrayList<Integer>();
+			while (rs.next()) {
+				int studentid = rs.getInt("studentid");
+				studentidlist.add(studentid);
+			}
+			pstmt.close();
+			
+			//add assignments to the studentassignment table for each student in the course
+			for(int studentid : studentidlist)
+			{
+				pstmt = connection.prepareStatement(
+						"INSERT INTO StudentAssignment (studentid, assignmentid) VALUES (?, ?)");
+				pstmt.setInt(1, studentid);
+				pstmt.setInt(2, assignmentid);
+				pstmt.executeUpdate();
+			}
 
+		} catch (SQLException e) {
+			System.out.println("nope - query was not successful. reason:");
+			System.out.println(e.getMessage());
+		} finally {
+			closeConnection();
+		}
+	}
+	
+	public static void gradeAssignment(int studentid, int assignmentid, int grade)
+	{
+		try {
+			connection = DriverManager.getConnection(DBInfo.URL, DBInfo.USER, DBInfo.PASSWORD);
+			pstmt = connection
+					.prepareStatement("UPDATE StudentAssignment SET grade = " + grade 
+							+ " WHERE assignmentid = " + assignmentid + " AND studentid = " + studentid);
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("nope - query was not successful. reason:");
+			System.out.println(e.getMessage());
+		} finally {
+			closeConnection();
+		}
+	}
+	
 	private static void closeConnection() {
 		try {
 			rs.close();
