@@ -60,6 +60,7 @@ public class ConfirmCredentials
 		{
 			
 		}
+		*/
 		//THIS IS WHERE WE WILL CHECK WITH THE DATABASE TO CONFIRM THE USER'S CREDENTIALS.
 		//If the credentials match up, the user is taken to their respective action center.
 		//For now, we will use these placeholder logins.
@@ -80,7 +81,7 @@ public class ConfirmCredentials
 		{
 			LoginScreen.display();
 		}
-		*/
+		
 	}
 	
 

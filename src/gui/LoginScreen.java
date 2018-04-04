@@ -4,68 +4,71 @@ import java.util.Scanner;
 import java.io.*;
 import javax.swing.*;
 
+import controllers.DefaultController;
+import db.AssignmentQueries;
 import db.ConfirmCredentials;
+import user.Teacher;
 
 import java.awt.*;
-
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class LoginScreen
 {
-	
-	//---------------------------------LOGIN SCREEN----------------------------------------	
+	private static JTextField usernameField;
+	private static JTextField passwordField;
+
+	/**
+	 * @wbp.parser.entryPoint
+	 */
 	public static void display()
 	{
-		
-		int choice;		
-	
-		JPanel loginPanel = new JPanel();
+		JFrame frmLogin = new JFrame("Login");
 
-		loginPanel.setLayout(new BoxLayout(loginPanel, BoxLayout.Y_AXIS));
-		
-		final JTextField usernameField = new JTextField(5);
-		JPasswordField passwordField = new JPasswordField(5);
-		
-		loginPanel.add(new JLabel("Please enter your login information:"));
-		loginPanel.add(Box.createVerticalStrut(15));
-		
-		loginPanel.add(new JLabel("User ID:"));
-		loginPanel.add(usernameField);
-		loginPanel.add(Box.createVerticalStrut(15));
-		
-		loginPanel.add(new JLabel("Password:"));
-		loginPanel.add(passwordField);
-		loginPanel.add(Box.createVerticalStrut(15));
-		
-		
-		UIManager.put("OptionPane.cancelButtonText", "Exit");
-		UIManager.put("OptionPane.okButtonText", "Submit");
-		
-		choice = JOptionPane.showConfirmDialog(null, loginPanel, "Electronic Assignment and Attendance Guide", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
-		
-		//User chooses to exit program.
-		if(choice == JOptionPane.CANCEL_OPTION || choice == JOptionPane.CLOSED_OPTION)
-		{
-			System.exit(1);
-		}
-		
-		else if(choice == JOptionPane.OK_OPTION)
-		{
-			String username = usernameField.getText();
-			String userPassword = convertPasswordToString(passwordField.getPassword());
-			
-			//User has submitted their userID and password.
-			ConfirmCredentials.credentials(username, userPassword);
-		}
-	
+	    frmLogin.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+	    frmLogin.setSize(811,627);  
+	    frmLogin.getContentPane().setLayout(null);
+	    
+	    JLabel lblUsername = new JLabel("Username:");
+	    lblUsername.setFont(new Font("Tahoma", Font.PLAIN, 20));
+	    lblUsername.setBounds(322, 366, 119, 28);
+	    frmLogin.getContentPane().add(lblUsername);
+	    
+	    usernameField = new JTextField();
+	    usernameField.setFont(new Font("Tahoma", Font.PLAIN, 20));
+	    usernameField.setBounds(452, 366, 196, 28);
+	    frmLogin.getContentPane().add(usernameField);
+	    usernameField.setColumns(10);
+	    
+	    JLabel lblPassword = new JLabel("Password:");
+	    lblPassword.setFont(new Font("Tahoma", Font.PLAIN, 20));
+	    lblPassword.setBounds(322, 405, 119, 28);
+	    frmLogin.getContentPane().add(lblPassword);
+	    
+	    passwordField = new JTextField();
+	    passwordField.setFont(new Font("Tahoma", Font.PLAIN, 20));
+	    passwordField.setColumns(10);
+	    passwordField.setBounds(452, 405, 196, 28);
+	    frmLogin.getContentPane().add(passwordField);
+	    
+	    JButton btnSubmit = new JButton("Submit");
+	    btnSubmit.addActionListener(new ActionListener() {
+	    	public void actionPerformed(ActionEvent e) {
+	    		String username = usernameField.getText();
+				String userPassword = passwordField.getText();
+				
+				//User has submitted their userID and password.
+				ConfirmCredentials.credentials(username, userPassword);
+	    	}
+	    	
+	    });
+	    btnSubmit.setBounds(515, 454, 89, 23);
+	    frmLogin.getContentPane().add(btnSubmit);
+	    
+	    JLabel label = new JLabel("");
+	    label.setIcon(new ImageIcon(LoginScreen.class.getResource("/images/Login.png")));
+	    label.setBounds(0, 0, 803, 588);
+	    frmLogin.getContentPane().add(label);
+	    frmLogin.setVisible(true);
 	}
-
-	private static String convertPasswordToString(char[] password) {
-		String pw = "";
-		for(char a : password)
-		{
-			pw += a;
-		}
-		return pw;
-	}
-	
 }
