@@ -1,6 +1,8 @@
 
-//Imports
+//Package
 package gui;
+
+//Imports
 import java.util.Scanner;
 import java.io.*;
 import javax.swing.*;
@@ -23,11 +25,12 @@ public class LoginScreen
 	private static JTextField usernameField;	//This variable retrieves the value from our username field entry.
 	private static JTextField passwordField;	//This variable retrieves the value from our password field entry.
 
-	//---------------------------------------------------------DISPLAY---------------------------------------------------------
-	//This is the display method that is called from other methods to open the login screen.
 	/**
 	 * @wbp.parser.entryPoint
 	 */
+	
+	//---------------------------------------------------------DISPLAY---------------------------------------------------------
+	//This is the display method that is called from other methods to open the login screen.
 	public static void display()
 	{
 		
@@ -38,7 +41,7 @@ public class LoginScreen
 		frmLogin.setResizable(false);
 
 	    frmLogin.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-	    frmLogin.setSize(793,582);
+	    frmLogin.setSize(793,612);
 	    frmLogin.getContentPane().setLayout(null);
 	    
 	    //Username Label
@@ -75,6 +78,12 @@ public class LoginScreen
 	    btnSubmit.setFont(new Font("Arial", Font.PLAIN, 14));
 	    frmLogin.getContentPane().add(btnSubmit);
 	    
+	    //'Company Details' Button
+	    JButton btnDetails = new JButton("Company Information");
+	    btnDetails.setFont(new Font("Arial", Font.PLAIN, 14));
+	    btnDetails.setBounds(10, 519, 174, 28);
+	    frmLogin.getContentPane().add(btnDetails);
+	    
 	    //Background Image
 	    JLabel backgroundImage = new JLabel("");
 	    backgroundImage.setBounds(0, 0, 793, 582);
@@ -85,9 +94,11 @@ public class LoginScreen
 		//========================ACTIONS========================
 	    
 	    //'Submit' button has been clicked.
-	    btnSubmit.addMouseListener(new MouseAdapter() {
+	    btnSubmit.addMouseListener(new MouseAdapter()
+	    {
 	    	@Override
-	    	public void mouseReleased(MouseEvent arg0) {
+	    	public void mouseReleased(MouseEvent arg0)
+	    	{
     			//Get text from username and password fields.
 	    		String username = usernameField.getText();
 				String userPassword = passwordField.getText();
@@ -101,10 +112,13 @@ public class LoginScreen
 	    });
 	    
 	  //'Enter' key is pressed while the 'Username' text field is tab-selected.
-	    usernameField.addKeyListener(new KeyAdapter() {
+	    usernameField.addKeyListener(new KeyAdapter()
+	    {
 	    	@Override
-	    	public void keyPressed(KeyEvent e) {
-	    		if (e.getKeyCode()==KeyEvent.VK_ENTER){
+	    	public void keyPressed(KeyEvent e)
+	    	{
+	    		if (e.getKeyCode()==KeyEvent.VK_ENTER)
+	    		{
 	    			//Get text from username and password fields.
 		    		String username = usernameField.getText();
 					String userPassword = passwordField.getText();
@@ -119,10 +133,13 @@ public class LoginScreen
 	    });
 	    
 	    //'Enter' key is pressed while the 'Password' text field is tab-selected.
-	    passwordField.addKeyListener(new KeyAdapter() {
+	    passwordField.addKeyListener(new KeyAdapter()
+	    {
 	    	@Override
-	    	public void keyPressed(KeyEvent e) {
-	    		if (e.getKeyCode()==KeyEvent.VK_ENTER){
+	    	public void keyPressed(KeyEvent e)
+	    	{
+	    		if (e.getKeyCode()==KeyEvent.VK_ENTER)
+	    		{
 	    			//Get text from username and password fields.
 		    		String username = usernameField.getText();
 					String userPassword = passwordField.getText();
@@ -137,10 +154,13 @@ public class LoginScreen
 	    });
 	    
 	    //'Enter' key is pressed while the 'Submit' button is tab-selected.
-	    btnSubmit.addKeyListener(new KeyAdapter() {
+	    btnSubmit.addKeyListener(new KeyAdapter()
+	    {
 	    	@Override
-	    	public void keyPressed(KeyEvent e) {
-	    		if (e.getKeyCode()==KeyEvent.VK_ENTER){
+	    	public void keyPressed(KeyEvent e)
+	    	{
+	    		if (e.getKeyCode()==KeyEvent.VK_ENTER)
+	    		{
 	    			//Get text from username and password fields.
 		    		String username = usernameField.getText();
 					String userPassword = passwordField.getText();
@@ -150,6 +170,31 @@ public class LoginScreen
 					
 					//Close login screen.
 		    	    frmLogin.dispose();
+	    	    }
+	    	}
+	    });
+	    
+	    //'Company Information' button has been clicked.
+	    btnDetails.addMouseListener(new MouseAdapter()
+	    {
+	    	@Override
+	    	public void mouseReleased(MouseEvent arg0)
+	    	{
+    			//The company information page will pop up.
+    			CompanyInformation.display();
+	    	}
+	    });
+	    
+	    //'Enter' key is pressed while the 'Company Information' button is tab-selected.
+	    btnDetails.addKeyListener(new KeyAdapter()
+	    {
+	    	@Override
+	    	public void keyPressed(KeyEvent e)
+	    	{
+	    		if (e.getKeyCode()==KeyEvent.VK_ENTER)
+	    		{
+	    			//The company information page will pop up.
+	    			CompanyInformation.display();
 	    	    }
 	    	}
 	    });

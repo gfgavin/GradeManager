@@ -1,14 +1,15 @@
+
+//Package
 package gui;
 
+//Imports
 import java.util.Scanner;
 import java.io.*;
 import javax.swing.*;
-
 import controllers.DefaultController;
 import db.AssignmentQueries;
 import db.ConfirmCredentials;
 import user.Teacher;
-
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
@@ -19,13 +20,15 @@ import org.eclipse.wb.swing.FocusTraversalOnArray;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+//________________________________________________________TEACHER ACTION CENTER________________________________________________________
 public class TeacherActionCenter
 {
-
 	/**
 	 * @wbp.parser.entryPoint
 	 */
-	public static void display()
+	
+	//---------------------------------------------------------DISPLAY---------------------------------------------------------
+	public static void display(String currentClass)
 	{
 		
 		//========================OBJECTS========================
@@ -33,11 +36,7 @@ public class TeacherActionCenter
 		//Jframe
 		JFrame frmTeacher = new JFrame("Welcome, " + DefaultController.teacherFirstName() + "!");
 		frmTeacher.setResizable(false);
-		JTextArea textBox = new JTextArea(DefaultController.teacherToString());
-	    textBox.setBounds(280, 204, 436, 283);
-	    textBox.setEditable(false);
 	    frmTeacher.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-	    frmTeacher.getContentPane().add(textBox);
 	    frmTeacher.setSize(732,527);  
 	    frmTeacher.getContentPane().setLayout(null);
 	    
@@ -79,7 +78,7 @@ public class TeacherActionCenter
 	    frmTeacher.getContentPane().add(lblText);
 	    
 	    //Current Class Display Label
-	    JLabel lblCurrentClass = new JLabel("CIS 4595 (Monday at 5PM)");
+	    JLabel lblCurrentClass = new JLabel(currentClass);
 	    lblCurrentClass.setFont(new Font("Tahoma", Font.PLAIN, 18));
 	    lblCurrentClass.setHorizontalAlignment(SwingConstants.CENTER);
 	    lblCurrentClass.setOpaque(true);
@@ -97,11 +96,47 @@ public class TeacherActionCenter
 	    
 		//========================ACTIONS========================
 	    
+	    //'Class Select' button has been clicked.
+	    //Creates a pop-up window for the user to select the class to alter.
+	    btnClassSelect.addMouseListener(new MouseAdapter()
+	    {
+	    	@Override
+	    	public void mouseReleased(MouseEvent arg0)
+	    	{
+	    		//Class select screen is opened.
+	    		//(Teacher action center remains open in the background.)
+	    		ClassSelect.display();
+	    		
+	    		//Teacher action center is closed.
+	    		frmTeacher.dispose();
+	    	}
+	    });
+	    
+	    //'Enter' key is pressed while the 'Class Select' button is tab-selected.
+	    btnClassSelect.addKeyListener(new KeyAdapter()
+	    {
+	    	@Override
+	    	public void keyPressed(KeyEvent e)
+	    	{
+	    		if (e.getKeyCode()==KeyEvent.VK_ENTER)
+	    		{
+		    		//Class select screen is opened.
+		    		//(Teacher action center remains open in the background.)
+		    		ClassSelect.display();
+		    		
+		    		//Teacher action center is closed.
+		    		frmTeacher.dispose();
+	    	    }
+	    	}
+	    });
+	    
 	    //'Log Out' button has been clicked.
 	    //Returns the user to the login screen.
-	    btnLogout.addMouseListener(new MouseAdapter() {
+	    btnLogout.addMouseListener(new MouseAdapter()
+	    {
 	    	@Override
-	    	public void mouseReleased(MouseEvent arg0) {
+	    	public void mouseReleased(MouseEvent arg0)
+	    	{
 	    		//Teacher action center is closed.
 	    		frmTeacher.dispose();
 	    		
@@ -111,9 +146,11 @@ public class TeacherActionCenter
 	    });
 	    
 	    //'Enter' key is pressed while the 'Log Out' button is tab-selected.
-	    btnLogout.addKeyListener(new KeyAdapter() {
+	    btnLogout.addKeyListener(new KeyAdapter()
+	    {
 	    	@Override
-	    	public void keyPressed(KeyEvent e) {
+	    	public void keyPressed(KeyEvent e)
+	    	{
 	    		if (e.getKeyCode()==KeyEvent.VK_ENTER){
 		    		//Teacher action center is closed.
 		    		frmTeacher.dispose();

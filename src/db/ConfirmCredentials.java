@@ -1,6 +1,8 @@
 
-//Imports
+//Package
 package db;
+
+//Imports
 import java.util.Scanner;
 import java.io.*;
 import java.sql.Connection;
@@ -71,8 +73,10 @@ public class ConfirmCredentials
 		//User is of 'Teacher' type.
 		else if (username.equals("teacher"))
 		{
+			String currentClass = "No Class Selected";
+			
 			//Teacher action center is displayed for the user.
-			TeacherActionCenter.display();
+			TeacherActionCenter.display(currentClass);
 		}
 		
 		//User is of 'Student' type.
