@@ -21,8 +21,61 @@ public class ConfirmCredentials
 	private static PreparedStatement pstmt = null;
 	private static ResultSet rs = null;
 	
+public static int confirmUser(String username, String password) {
+int userType = 0;
+try {
+connection = DriverManager.getConnection(DBInfo.URL, DBInfo.USER,
+DBInfo.PASSWORD);
+pstmt = connection.prepareStatement("SELECT userpass FROM Student WHERE userlogin  = '" + username + "'");
+rs = pstmt.executeQuery();
+if(rs.next())
+{
+if(rs.getString("userpass").equals(password))
+{
+userType = 1;
+}
+}
+} catch (SQLException e) {
+System.out.println("nope - query was not successful. reason:");
+System.out.println(e.getMessage());
+}
+                try {
+connection = DriverManager.getConnection(DBInfo.URL, DBInfo.USER,
+DBInfo.PASSWORD);
+pstmt = connection.prepareStatement("SELECT userpass FROM Teacher WHERE userlogin  = '" + username + "'");
+rs = pstmt.executeQuery();
+if(rs.next())
+{
+if(rs.getString("userpass").equals(password))
+{
+userType = 2;
+}
+}
+} catch (SQLException e) {
+System.out.println("nope - query was not successful. reason:");
+System.out.println(e.getMessage());
+}
+                try {
+connection = DriverManager.getConnection(DBInfo.URL, DBInfo.USER,
+DBInfo.PASSWORD);
+pstmt = connection.prepareStatement("SELECT userpass FROM Admin WHERE userlogin  = '" + username + "'");
+rs = pstmt.executeQuery();
+if(rs.next())
+{
+if(rs.getString("userpass").equals(password))
+{
+userType = 3;
+}
+}
+} catch (SQLException e) {
+System.out.println("nope - query was not successful. reason:");
+System.out.println(e.getMessage());
+}
+return userType;
 
 
+}
+/*
 	public static boolean confirmUser(String userType, String username, String password) {
 		boolean userIsConfirmed = false;
 		try {
@@ -46,7 +99,7 @@ public class ConfirmCredentials
 		}
 		return userIsConfirmed;
 	}
-
+*/
 	
 	public static void credentials(String username, String password)
 	{
