@@ -4,6 +4,7 @@
 package course;
 
 import java.util.ArrayList;
+import user.Student;
 
 import user.Teacher;
 
@@ -17,6 +18,7 @@ public class Course {
 	private String time;
 	private Teacher teacher;
 	private ArrayList<Assignment> assignmentList;
+        private ArrayList<Student> studentList;
 	
 	
 	/**
@@ -27,6 +29,7 @@ public class Course {
 		setTime("");
 		setTeacher(new Teacher());
 		setAssignmentList(new ArrayList<Assignment>());
+                setStudentList(new ArrayList<Student>());
 	}
 
 
@@ -34,7 +37,7 @@ public class Course {
 	 * @param courseID
 	 * @param coursename
 	 * @param time
-	 * @param announcement
+	 * @param teacher
 	 * @param assignmentList
 	 */
 	public Course(int courseID, String coursename, String time, Teacher teacher, ArrayList<Assignment> assignmentList) {
@@ -42,6 +45,7 @@ public class Course {
 		setCoursename(coursename);
 		setTime(time);
 		setAssignmentList(assignmentList);
+                setStudentList(new ArrayList<Student>());
 	}
 
 
@@ -114,6 +118,20 @@ public class Course {
 	 */
 	public void setAssignmentList(ArrayList<Assignment> assignmentList) {
 		this.assignmentList = assignmentList;
+                /*
+                //ArrayList<Assignment> listForOneAssignment = new ArrayList<Assignment>();
+                if(this.assignmentList.size() > 0)
+                {
+                    int id = assignmentList.get(0).getAssignmentID();
+                    for(Assignment a : this.assignmentList)
+                    {
+                        if(a.getAssignmentID() == id)
+                        {
+                            studentList.add(a.getStudent());
+                        }
+                    }
+                }
+                */
 	}
 
 
@@ -139,12 +157,17 @@ public class Course {
 	 */
 	@Override
 	public String toString() {
-		return "Course: " + getCoursename() + "\n"
-				+ "CourseID: " + getCourseID() + "\n"
-				+ "Time: " + getTime() + "\n"
-				+ "Teacher: " + getTeacher().getFirstName() + " " + getTeacher().getLastName() + "\n"
-				+ "Assignments: " + assignmentListToString();
+		return getCoursename() + " (ID: " + getCourseID() + " Time: " + getTime()
+                        + " Teacher: " + getTeacher().getFirstName() + " " + getTeacher().getLastName() +")";
 	}
+
+    public ArrayList<Student> getStudentList() {
+        return studentList;
+    }
+
+    public void setStudentList(ArrayList<Student> studentList) {
+        this.studentList = studentList;
+    }
 	
 	
 }

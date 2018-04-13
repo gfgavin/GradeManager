@@ -64,4 +64,26 @@ public class StudentController {
 		return theString;
 	}
 
+    public String viewGradesForCourse(int courseId) {
+        String grades = "";
+        Course course = new Course();
+        for(Course c : courseList)
+        {
+            if(c.getCourseID() == courseId)
+            {
+                course = c;
+                break;
+            }
+        }
+        grades += "Course: " + course.getCoursename() + "\n"
+                + "Teacher: " + course.getTeacher().getFirstName() + " " + course.getTeacher().getLastName() + "\n\n";
+        
+        for(Assignment a : course.getAssignmentList())
+        {
+            grades += a.getTitle() + " - " + a.getGrade() + "\n";
+        }
+        
+        return grades;
+    }
+
 }

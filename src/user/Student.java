@@ -49,9 +49,8 @@ public class Student extends User {
 	 */
 	@Override
 	public String toString() {
-		return "Student: " + getFirstName() + " " + getLastName() + "\n"
-				+ "StudentID: " + getStudentID() + "\n"
-				+ "UserName: " + getUserName();
+            return getFirstName() + " " + getLastName() 
+                        + " (ID: " + getStudentID() + " UserName: " + getUserName() + ")";
 	}
 	
 	

@@ -52,8 +52,7 @@ public class Teacher extends User {
 	 */
 	@Override
 	public String toString() {
-		return "Teacher: " + getFirstName() + " " + getLastName() + "\n"
-				+ "TeacherID: " + getTeacherID() + "\n"
-				+ "UserName: " + getUserName();
+		return getFirstName() + " " + getLastName() 
+                        + " (ID: " + getTeacherID() + " UserName: " + getUserName() + ")";
 	}
 }

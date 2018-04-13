@@ -128,7 +128,7 @@ public class AdminQueries {
 		}
 	}
 
-	public static void addTeacherToCourse(int courseid, int teacherid) {
+	public static void addTeacherToCourse(int teacherid, int courseid) {
 		try {
 			connection = DriverManager.getConnection(DBInfo.URL, DBInfo.USER, DBInfo.PASSWORD);
 			pstmt = connection

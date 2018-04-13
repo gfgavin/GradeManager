@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import user.Student;
 
 import course.Course;
 
@@ -74,7 +75,7 @@ public class CourseQueries {
 
 	public static ArrayList<Course> getCoursesForStudent(int studentid) {
 		ArrayList<Course> courselist = new ArrayList<Course>();
-
+                
 		PreparedStatement pstmt2 = null;
 		ResultSet rs2 = null;
 		try {
@@ -83,19 +84,20 @@ public class CourseQueries {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
+				Course course = new Course();
 				int courseid = rs.getInt("courseid");
-				
+				course.setCourseID(courseid);
+                                
 				pstmt2 = connection
 						.prepareStatement("SELECT * FROM Course WHERE courseid = " + courseid);
 				rs2 = pstmt2.executeQuery();
 				while (rs2.next()) {
 					//ArrayList<Assignment> assignmentList = new ArrayList<Assignment>();
-					Course course = new Course();
 					
 					course.setCoursename(rs2.getString("coursename"));
 					course.setTime(rs2.getString("time"));
+                                        course.setTeacher(TeacherQueries.getTeacher(rs2.getInt("teacherid")));
 					course.setAssignmentList(AssignmentQueries.getStudentAssignmentsForACourse(courseid, studentid));
-
 					courselist.add(course);
 				}
 			}
@@ -107,6 +109,43 @@ public class CourseQueries {
 			closeConnection();
 		}
 		return courselist;
+	}
+        public static ArrayList<Student> getStudentsForCourse(int courseid) {
+		ArrayList<Student> studentlist = new ArrayList<Student>();
+                PreparedStatement pstmt2 = null;
+		ResultSet rs2 = null;   
+		try {
+			connection = DriverManager.getConnection(DBInfo.URL, DBInfo.USER, DBInfo.PASSWORD);
+			pstmt = connection.prepareStatement("SELECT * FROM StudentCourse WHERE courseid = " + courseid);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {	
+				Student student = new Student();			
+				int studentid = rs.getInt("studentid");
+                                student.setStudentID(studentid);
+				
+				pstmt2 = connection
+						.prepareStatement("SELECT * FROM Student WHERE studentid = " + studentid);
+				rs2 = pstmt2.executeQuery();
+				while (rs2.next()) {
+					//ArrayList<Assignment> assignmentList = new ArrayList<Assignment>();
+					
+					student.setFirstName(rs2.getString("firstname"));
+					student.setLastName(rs2.getString("lastname"));
+					student.setUserName(rs2.getString("userlogin"));
+					
+
+					studentlist.add(student);
+				}
+			}
+
+		} catch (SQLException e) {
+			System.out.println("nope - query was not successful. reason:");
+			System.out.println(e.getMessage());
+		} finally {
+			closeConnection();
+		}
+		return studentlist;
 	}
 
 	private static void closeConnection() {
