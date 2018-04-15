@@ -1,33 +1,56 @@
 package gui;
 
-
 import controllers.AdminController;
 import course.Course;
 import javax.swing.*;
 import user.*;
 import db.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 
-
 public class AdminView extends javax.swing.JFrame {
+
     private AdminController adminController;
-    
+
     /**
      * Creates new form Test
      */
     public AdminView() {
         initComponents();
+
+        addTeacherClassTable.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent evt) {
+                JTable table = (JTable) evt.getSource();
+                if (evt.getClickCount() == 2) {
+
+                    // Double-click detected
+                    int row = table.rowAtPoint(evt.getPoint());
+
+                    ArrayList<Course> courseList = adminController.getCourselist();
+                    if (row > courseList.size() - 1) {
+                        return;
+                    }
+
+                    //delete the teacher with given id and update the controller
+                    int courseId = courseList.get(row).getCourseID();
+                    //adminController.doSomethingWith(courseId);
+                    System.out.println(courseId);
+                }
+            }
+        });
+
         setAllPanelsInvisible();
         addTeacherPanel.setVisible(true);
     }
 
-    public void setAdmin(String username)
-    {
+    public void setAdmin(String username) {
         adminController = new AdminController(username);
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -1326,35 +1349,35 @@ public class AdminView extends javax.swing.JFrame {
     private void removeTeacherButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeTeacherButtonActionPerformed
         setAllPanelsInvisible();
         removeTeacherPanel.setVisible(true);
-        
+
         ArrayList<Teacher> teacherList = adminController.getTeacherlist();
         DefaultTableModel model = (DefaultTableModel) removeTeacherTable.getModel();
         model.getDataVector().removeAllElements();
         int i = 0;
-        for(Teacher t : teacherList) {
-            model.insertRow(i,new Object[]{t.toString()});
+        for (Teacher t : teacherList) {
+            model.insertRow(i, new Object[]{t.toString()});
             i++;
-            
+
         }
-        for (int j = teacherList.size(); j < 25 ; j++) {
+        for (int j = teacherList.size(); j < 25; j++) {
             model.addRow(new Object[]{" "});
         }
     }//GEN-LAST:event_removeTeacherButtonActionPerformed
-    
+
     private void addTeacherToClassButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addTeacherToClassButtonActionPerformed
         setAllPanelsInvisible();
         addTeacherToClassPanel.setVisible(true);
-        
+
         ArrayList<Course> courseList = adminController.getCourselist();
         DefaultTableModel model = (DefaultTableModel) addTeacherClassTable.getModel();
         model.getDataVector().removeAllElements();
         int i = 0;
-        for(Course t : courseList) {
-            model.insertRow(i,new Object[]{t.toString()});
+        for (Course t : courseList) {
+            model.insertRow(i, new Object[]{t.toString()});
             i++;
-            
+
         }
-        for (int j = courseList.size(); j < 25 ; j++) {
+        for (int j = courseList.size(); j < 25; j++) {
             model.addRow(new Object[]{" "});
         }
     }//GEN-LAST:event_addTeacherToClassButtonActionPerformed
@@ -1362,17 +1385,17 @@ public class AdminView extends javax.swing.JFrame {
     private void removeTeacherFromClassButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeTeacherFromClassButtonActionPerformed
         setAllPanelsInvisible();
         removeTeacherFromClassPanel.setVisible(true);
-        
+
         ArrayList<Course> courseList = adminController.getCourselist();
         DefaultTableModel model = (DefaultTableModel) removeTeacherFromClassTable.getModel();
         model.getDataVector().removeAllElements();
         int i = 0;
-        for(Course t : courseList) {
-            model.insertRow(i,new Object[]{t.toString()});
+        for (Course t : courseList) {
+            model.insertRow(i, new Object[]{t.toString()});
             i++;
-            
+
         }
-        for (int j = courseList.size(); j < 25 ; j++) {
+        for (int j = courseList.size(); j < 25; j++) {
             model.addRow(new Object[]{" "});
         }
     }//GEN-LAST:event_removeTeacherFromClassButtonActionPerformed
@@ -1395,22 +1418,22 @@ public class AdminView extends javax.swing.JFrame {
         String last = teacherLast.getText();
         String user = teacherUser.getText();
         String pass = teacherPass.getText();
-        
+
         adminController.createTeacher(first, last, user, pass);
     }//GEN-LAST:event_insertTeacherButtonActionPerformed
 
     private void removeTeacherActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeTeacherActionPerformed
         int row = removeTeacherTable.getSelectedRow();
-        
+
         ArrayList<Teacher> teacherList = adminController.getTeacherlist();
         if (row > teacherList.size() - 1) {
             return;
         }
-        
+
         //delete the teacher with given id and update the controller
         int teacherId = teacherList.get(row).getTeacherID();
         adminController.deleteTeacher(teacherId);
-        
+
         //refresh the panel
         removeTeacherButtonActionPerformed(evt);
     }//GEN-LAST:event_removeTeacherActionPerformed
@@ -1428,22 +1451,22 @@ public class AdminView extends javax.swing.JFrame {
         String last = studentLast.getText();
         String user = studentUser.getText();
         String pass = studentPass.getText();
-        
+
         adminController.createStudent(first, last, user, pass);
     }//GEN-LAST:event_insertStudentButtonActionPerformed
 
     private void removeStudentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeStudentActionPerformed
         int row = removeStudentTable.getSelectedRow();
-        
+
         ArrayList<Student> studentList = adminController.getStudentlist();
         if (row > studentList.size() - 1) {
             return;
         }
-        
+
         //delete the student with given id and update the controller
         int studentId = studentList.get(row).getStudentID();
         adminController.deleteStudent(studentId);
-        
+
         //refresh the panel
         removeStudentButtonActionPerformed(evt);
     }//GEN-LAST:event_removeStudentActionPerformed
@@ -1451,17 +1474,17 @@ public class AdminView extends javax.swing.JFrame {
     private void removeStudentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeStudentButtonActionPerformed
         setAllPanelsInvisible();
         removeStudentPanel.setVisible(true);
-        
+
         ArrayList<Student> studentList = adminController.getStudentlist();
         DefaultTableModel model = (DefaultTableModel) removeStudentTable.getModel();
         model.getDataVector().removeAllElements();
         int i = 0;
-        for(Student t : studentList) {
-            model.insertRow(i,new Object[]{t.toString()});
+        for (Student t : studentList) {
+            model.insertRow(i, new Object[]{t.toString()});
             i++;
-            
+
         }
-        for (int j = studentList.size(); j < 25 ; j++) {
+        for (int j = studentList.size(); j < 25; j++) {
             model.addRow(new Object[]{" "});
         }
     }//GEN-LAST:event_removeStudentButtonActionPerformed
@@ -1473,7 +1496,7 @@ public class AdminView extends javax.swing.JFrame {
     private void insertClassButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertClassButtonActionPerformed
         String name = className.getText();
         String time = classTime.getText();
-        
+
         adminController.createCourse(name, time);
     }//GEN-LAST:event_insertClassButtonActionPerformed
 
@@ -1484,16 +1507,16 @@ public class AdminView extends javax.swing.JFrame {
 
     private void removeClassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeClassActionPerformed
         int row = removeClassTable.getSelectedRow();
-        
+
         ArrayList<Course> courseList = adminController.getCourselist();
         if (row > courseList.size() - 1) {
             return;
         }
-        
+
         //delete the student with given id and update the controller
         int courseId = courseList.get(row).getCourseID();
         adminController.deleteCourse(courseId);
-        
+
         //refresh the panel
         removeClassButtonActionPerformed(evt);
     }//GEN-LAST:event_removeClassActionPerformed
@@ -1501,60 +1524,60 @@ public class AdminView extends javax.swing.JFrame {
     private void removeClassButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeClassButtonActionPerformed
         setAllPanelsInvisible();
         removeClassPanel.setVisible(true);
-        
+
         ArrayList<Course> courseList = adminController.getCourselist();
         DefaultTableModel model = (DefaultTableModel) removeClassTable.getModel();
         model.getDataVector().removeAllElements();
         int i = 0;
-        for(Course t : courseList) {
-            model.insertRow(i,new Object[]{t.toString()});
+        for (Course t : courseList) {
+            model.insertRow(i, new Object[]{t.toString()});
             i++;
-            
+
         }
-        for (int j = courseList.size(); j < 25 ; j++) {
+        for (int j = courseList.size(); j < 25; j++) {
             model.addRow(new Object[]{" "});
         }
     }//GEN-LAST:event_removeClassButtonActionPerformed
 
     private void selectClass4StudentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectClass4StudentActionPerformed
         int row = addStudentClassTable.getSelectedRow();
-        
+
         ArrayList<Course> courseList = adminController.getCourselist();
         if (row > courseList.size() - 1) {
             return;
         }
-        
+
         //delete the student with given id and update the controller
         int courseId = courseList.get(row).getCourseID();
         ArrayList<Student> studentsNotInCourse = adminController.studentsNotInCourse(courseId);
         DefaultTableModel model = (DefaultTableModel) studentsToAddTable.getModel();
         model.getDataVector().removeAllElements();
         int i = 0;
-        for(Student t : studentsNotInCourse) {
-            model.insertRow(i,new Object[]{t.toString()});
+        for (Student t : studentsNotInCourse) {
+            model.insertRow(i, new Object[]{t.toString()});
             i++;
-            
+
         }
-        for (int j = studentsNotInCourse.size(); j < 25 ; j++) {
+        for (int j = studentsNotInCourse.size(); j < 25; j++) {
             model.addRow(new Object[]{" "});
         }
-        
+
         //refresh the panel
         //addStudentToClassButtonActionPerformed(evt);
     }//GEN-LAST:event_selectClass4StudentActionPerformed
 
     private void addStudentToClassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addStudentToClassActionPerformed
         int row = studentsToAddTable.getSelectedRow();
-        
+
         ArrayList<Student> studentList = adminController.getStudentSubList();
         if (row > studentList.size() - 1) {
             return;
         }
-        
+
         //add the student with given id and update the controller
         int studentId = studentList.get(row).getStudentID();
         adminController.addStudentToCourse(studentId);
-        
+
         //refresh the panel
         addStudentToClassButtonActionPerformed(evt);
     }//GEN-LAST:event_addStudentToClassActionPerformed
@@ -1562,29 +1585,29 @@ public class AdminView extends javax.swing.JFrame {
     private void addStudentToClassButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addStudentToClassButtonActionPerformed
         setAllPanelsInvisible();
         addStudentToClassPanel.setVisible(true);
-        
+
         ArrayList<Course> courseList = adminController.getCourselist();
         DefaultTableModel model = (DefaultTableModel) addStudentClassTable.getModel();
         model.getDataVector().removeAllElements();
         int i = 0;
-        for(Course t : courseList) {
-            model.insertRow(i,new Object[]{t.toString()});
+        for (Course t : courseList) {
+            model.insertRow(i, new Object[]{t.toString()});
             i++;
-            
+
         }
-        for (int j = courseList.size(); j < 25 ; j++) {
+        for (int j = courseList.size(); j < 25; j++) {
             model.addRow(new Object[]{" "});
         }
     }//GEN-LAST:event_addStudentToClassButtonActionPerformed
 
     private void selectClass4TeacherActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectClass4TeacherActionPerformed
         int row = addTeacherClassTable.getSelectedRow();
-        
+
         ArrayList<Course> courseList = adminController.getCourselist();
         if (row > courseList.size() - 1) {
             return;
         }
-        
+
         //delete the student with given id and update the controller
         int courseId = courseList.get(row).getCourseID();
         adminController.setSelectedCourse(courseId);
@@ -1592,71 +1615,71 @@ public class AdminView extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) teachersToAddTable.getModel();
         model.getDataVector().removeAllElements();
         int i = 0;
-        for(Teacher t : teacherList) {
-            model.insertRow(i,new Object[]{t.toString()});
+        for (Teacher t : teacherList) {
+            model.insertRow(i, new Object[]{t.toString()});
             i++;
-            
+
         }
-        for (int j = teacherList.size(); j < 25 ; j++) {
+        for (int j = teacherList.size(); j < 25; j++) {
             model.addRow(new Object[]{" "});
         }
     }//GEN-LAST:event_selectClass4TeacherActionPerformed
 
     private void addTeacherToClassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addTeacherToClassActionPerformed
         int row = teachersToAddTable.getSelectedRow();
-        
+
         ArrayList<Teacher> teacherList = adminController.getTeacherlist();
         if (row > teacherList.size() - 1) {
             return;
         }
-        
+
         //add the student with given id and update the controller
         int teacherId = teacherList.get(row).getTeacherID();
         adminController.addTeacherToCourse(teacherId);
-        
+
         //refresh the panel
         addTeacherToClassButtonActionPerformed(evt);
     }//GEN-LAST:event_addTeacherToClassActionPerformed
 
     private void selectClass4StudentRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectClass4StudentRemoveActionPerformed
         int row = removeStudentClassTable.getSelectedRow();
-        
+
         ArrayList<Course> courseList = adminController.getCourselist();
         if (row > courseList.size() - 1) {
             return;
         }
-        
+
         //delete the student with given id and update the controller
         int courseId = courseList.get(row).getCourseID();
         ArrayList<Student> studentsInCourse = adminController.studentsInCourse(courseId);
         DefaultTableModel model = (DefaultTableModel) studentsToRemoveTable.getModel();
         model.getDataVector().removeAllElements();
         int i = 0;
-        for(Student t : studentsInCourse) {
-            model.insertRow(i,new Object[]{t.toString()});
+        for (Student t : studentsInCourse) {
+            model.insertRow(i, new Object[]{t.toString()});
             i++;
-            
+
         }
-        for (int j = studentsInCourse.size(); j < 25 ; j++) {
+        for (int j = studentsInCourse.size(); j < 25; j++) {
             model.addRow(new Object[]{" "});
         }
-        
+
         //refresh the panel
         //addStudentToClassButtonActionPerformed(evt);
     }//GEN-LAST:event_selectClass4StudentRemoveActionPerformed
 
     private void removeStudentFromClassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeStudentFromClassActionPerformed
         int row = studentsToRemoveTable.getSelectedRow();
-        
+
         ArrayList<Student> studentList = adminController.getStudentSubList();
         if (row > studentList.size() - 1) {
             return;
         }
-        
+
         //remove the student with given id and update the controller
         int studentId = studentList.get(row).getStudentID();
         adminController.removeStudentFromCourse(studentId);
-        
+
         //refresh the panel
         removeStudentFromClassButtonActionPerformed(evt);
     }//GEN-LAST:event_removeStudentFromClassActionPerformed
@@ -1664,47 +1687,44 @@ public class AdminView extends javax.swing.JFrame {
     private void removeStudentFromClassButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeStudentFromClassButtonActionPerformed
         setAllPanelsInvisible();
         removeStudentFromClassPanel.setVisible(true);
-        
+
         ArrayList<Course> courseList = adminController.getCourselist();
         DefaultTableModel model = (DefaultTableModel) removeStudentClassTable.getModel();
         model.getDataVector().removeAllElements();
         int i = 0;
-        for(Course t : courseList) {
-            model.insertRow(i,new Object[]{t.toString()});
+        for (Course t : courseList) {
+            model.insertRow(i, new Object[]{t.toString()});
             i++;
-            
+
         }
-        for (int j = courseList.size(); j < 25 ; j++) {
+        for (int j = courseList.size(); j < 25; j++) {
             model.addRow(new Object[]{" "});
         }
     }//GEN-LAST:event_removeStudentFromClassButtonActionPerformed
 
     private void removeTeacherFromClassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeTeacherFromClassActionPerformed
         int row = removeTeacherFromClassTable.getSelectedRow();
-        
+
         ArrayList<Course> courseList = adminController.getCourselist();
         if (row > courseList.size() - 1) {
             return;
         }
-        
+
         //delete the teacher with given id and update the controller
         int courseId = courseList.get(row).getCourseID();
         adminController.removeTeacherFromCourse(courseId);
-        
+
         //refresh the panel
         removeTeacherFromClassButtonActionPerformed(evt);
     }//GEN-LAST:event_removeTeacherFromClassActionPerformed
 
-    
-    
     /**
      * @param args the command line arguments
      */
     private void init() {
-        
-        
+
     }
-        
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -1743,13 +1763,12 @@ public class AdminView extends javax.swing.JFrame {
                 AdminView n = new AdminView();
                 n.setVisible(true);
                 n.init();
-                
-                
+
             }
         });
-        
+
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addClassButton;
     private javax.swing.JPanel addClassPanel;
@@ -1831,17 +1850,17 @@ public class AdminView extends javax.swing.JFrame {
     private javax.swing.JTextField teacherUser;
     private javax.swing.JTable teachersToAddTable;
     // End of variables declaration//GEN-END:variables
-    
+
     public static void changename(JTable j) {
         j.getColumnModel().getColumn(3).setHeaderValue("hiii");
-        
+
     }
+
     public static void updateGrade(JTable j) {
-        
+
     }
-    
-    private void setAllPanelsInvisible()
-    {
+
+    private void setAllPanelsInvisible() {
         addTeacherPanel.setVisible(false);
         removeTeacherPanel.setVisible(false);
         addStudentPanel.setVisible(false);
@@ -1855,4 +1874,3 @@ public class AdminView extends javax.swing.JFrame {
     }
 
 }
-    

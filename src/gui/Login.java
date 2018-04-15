@@ -150,8 +150,11 @@ public class Login extends javax.swing.JFrame {
                     this.setVisible(false);
                     studentView.setVisible(true);
                 } else if (userNameAndPasswordMatch == 2) {
+                    TeacherView teacherView = new TeacherView();
+                    teacherView.setTeacher(username);
+                    
                     this.setVisible(false);
-                    new TeacherView().setVisible(true);
+                    teacherView.setVisible(true);
                 } else if (userNameAndPasswordMatch == 3) {
                     AdminView adminView = new AdminView();
                     adminView.setAdmin(username);
