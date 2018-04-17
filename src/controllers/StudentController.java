@@ -9,80 +9,98 @@ import db.StudentQueries;
 import user.Student;
 
 public class StudentController {
-	private Student student;
-	private ArrayList<Course> courseList;
 
-	public StudentController(String username) {
-		setStudent(StudentQueries.getStudent(username));
-		setCourseList(CourseQueries.getCoursesForStudent(student.getStudentID()));
-	}
+    private Student student;
+    private ArrayList<Course> courseList;
 
-	/**
-	 * @return the student
-	 */
-	public Student getStudent() {
-		return student;
-	}
+    public StudentController(String username) {
+        setStudent(StudentQueries.getStudent(username));
+        setCourseList(CourseQueries.getCoursesForStudent(student.getStudentID()));
+    }
 
-	/**
-	 * @return the courseList
-	 */
-	public ArrayList<Course> getCourseList() {
-		return courseList;
-	}
+    /**
+     * @return the student
+     */
+    public Student getStudent() {
+        return student;
+    }
 
-	/**
-	 * @param student the student to set
-	 */
-	public void setStudent(Student student) {
-		this.student = student;
-	}
+    /**
+     * @return the courseList
+     */
+    public ArrayList<Course> getCourseList() {
+        return courseList;
+    }
 
-	/**
-	 * @param courseList the courseList to set
-	 */
-	public void setCourseList(ArrayList<Course> courseList) {
-		this.courseList = courseList;
-	}
+    /**
+     * @param student the student to set
+     */
+    public void setStudent(Student student) {
+        this.student = student;
+    }
 
-	/* (non-Javadoc)
+    /**
+     * @param courseList the courseList to set
+     */
+    public void setCourseList(ArrayList<Course> courseList) {
+        this.courseList = courseList;
+    }
+
+    /* (non-Javadoc)
 	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		String theString = "";
+     */
+    @Override
+    public String toString() {
+        String theString = "";
 
-		theString += "Student:\n" + student.getFirstName() + " " + student.getLastName() + "\n";
-		theString += "\nCourses:\n";
-		for(Course c : courseList) 
-		{
-			theString += c.getCoursename() + " " + c.getTime() + "\n";
-			theString += "\nAssignments:\n";
-			for(Assignment a : c.getAssignmentList()) {theString += a.getTitle() + " " + a.getGrade() + "\n";}
-		}
-		
-		return theString;
-	}
+        theString += "Student:\n" + student.getFirstName() + " " + student.getLastName() + "\n";
+        theString += "\nCourses:\n";
+        for (Course c : courseList) {
+            theString += c.getCoursename() + " " + c.getTime() + "\n";
+            theString += "\nAssignments:\n";
+            for (Assignment a : c.getAssignmentList()) {
+                theString += a.getTitle() + " " + a.getGrade() + "\n";
+            }
+        }
+
+        return theString;
+    }
+
+    public ArrayList<Assignment> assignmentListForCourse(int courseId) {
+        ArrayList<Assignment> assignmentListForCourse = new ArrayList<Assignment>();
+
+        Course course = new Course();
+        for (Course c : courseList) {
+            if (c.getCourseID() == courseId) {
+                course = c;
+                break;
+            }
+        }
+        
+        for (Assignment a : course.getAssignmentList()) {
+            assignmentListForCourse.add(a);
+        }
+
+        return assignmentListForCourse;
+
+    }
 
     public String viewGradesForCourse(int courseId) {
         String grades = "";
         Course course = new Course();
-        for(Course c : courseList)
-        {
-            if(c.getCourseID() == courseId)
-            {
+        for (Course c : courseList) {
+            if (c.getCourseID() == courseId) {
                 course = c;
                 break;
             }
         }
         grades += "Course: " + course.getCoursename() + "\n"
                 + "Teacher: " + course.getTeacher().getFirstName() + " " + course.getTeacher().getLastName() + "\n\n";
-        
-        for(Assignment a : course.getAssignmentList())
-        {
+
+        for (Assignment a : course.getAssignmentList()) {
             grades += a.getTitle() + " - " + a.getGrade() + "\n";
         }
-        
+
         return grades;
     }
 

@@ -31,7 +31,7 @@ public class AdminView extends javax.swing.JFrame {
                     int row = table.rowAtPoint(evt.getPoint());
 
                     ArrayList<Course> courseList = adminController.getCourselist();
-                    if (row > courseList.size() - 1) {
+                    if (row > courseList.size() - 1 || row < 0) {
                         return;
                     }
 
@@ -1426,7 +1426,7 @@ public class AdminView extends javax.swing.JFrame {
         int row = removeTeacherTable.getSelectedRow();
 
         ArrayList<Teacher> teacherList = adminController.getTeacherlist();
-        if (row > teacherList.size() - 1) {
+        if (row > teacherList.size() - 1 || row < 0) {
             return;
         }
 
@@ -1459,7 +1459,7 @@ public class AdminView extends javax.swing.JFrame {
         int row = removeStudentTable.getSelectedRow();
 
         ArrayList<Student> studentList = adminController.getStudentlist();
-        if (row > studentList.size() - 1) {
+        if (row > studentList.size() - 1 || row < 0) {
             return;
         }
 
@@ -1509,7 +1509,7 @@ public class AdminView extends javax.swing.JFrame {
         int row = removeClassTable.getSelectedRow();
 
         ArrayList<Course> courseList = adminController.getCourselist();
-        if (row > courseList.size() - 1) {
+        if (row > courseList.size() - 1 || row < 0) {
             return;
         }
 
@@ -1543,7 +1543,7 @@ public class AdminView extends javax.swing.JFrame {
         int row = addStudentClassTable.getSelectedRow();
 
         ArrayList<Course> courseList = adminController.getCourselist();
-        if (row > courseList.size() - 1) {
+        if (row > courseList.size() - 1 || row < 0) {
             return;
         }
 
@@ -1561,16 +1561,13 @@ public class AdminView extends javax.swing.JFrame {
         for (int j = studentsNotInCourse.size(); j < 25; j++) {
             model.addRow(new Object[]{" "});
         }
-
-        //refresh the panel
-        //addStudentToClassButtonActionPerformed(evt);
     }//GEN-LAST:event_selectClass4StudentActionPerformed
 
     private void addStudentToClassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addStudentToClassActionPerformed
         int row = studentsToAddTable.getSelectedRow();
 
         ArrayList<Student> studentList = adminController.getStudentSubList();
-        if (row > studentList.size() - 1) {
+        if (row > studentList.size() - 1 || row < 0) {
             return;
         }
 
@@ -1604,7 +1601,7 @@ public class AdminView extends javax.swing.JFrame {
         int row = addTeacherClassTable.getSelectedRow();
 
         ArrayList<Course> courseList = adminController.getCourselist();
-        if (row > courseList.size() - 1) {
+        if (row > courseList.size() - 1 || row < 0) {
             return;
         }
 
@@ -1629,7 +1626,7 @@ public class AdminView extends javax.swing.JFrame {
         int row = teachersToAddTable.getSelectedRow();
 
         ArrayList<Teacher> teacherList = adminController.getTeacherlist();
-        if (row > teacherList.size() - 1) {
+        if (row > teacherList.size() - 1 || row < 0) {
             return;
         }
 
@@ -1645,7 +1642,7 @@ public class AdminView extends javax.swing.JFrame {
         int row = removeStudentClassTable.getSelectedRow();
 
         ArrayList<Course> courseList = adminController.getCourselist();
-        if (row > courseList.size() - 1) {
+        if (row > courseList.size() - 1 || row < 0) {
             return;
         }
 
@@ -1663,16 +1660,13 @@ public class AdminView extends javax.swing.JFrame {
         for (int j = studentsInCourse.size(); j < 25; j++) {
             model.addRow(new Object[]{" "});
         }
-
-        //refresh the panel
-        //addStudentToClassButtonActionPerformed(evt);
     }//GEN-LAST:event_selectClass4StudentRemoveActionPerformed
 
     private void removeStudentFromClassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeStudentFromClassActionPerformed
         int row = studentsToRemoveTable.getSelectedRow();
 
         ArrayList<Student> studentList = adminController.getStudentSubList();
-        if (row > studentList.size() - 1) {
+        if (row > studentList.size() - 1 || row < 0) {
             return;
         }
 
@@ -1706,7 +1700,7 @@ public class AdminView extends javax.swing.JFrame {
         int row = removeTeacherFromClassTable.getSelectedRow();
 
         ArrayList<Course> courseList = adminController.getCourselist();
-        if (row > courseList.size() - 1) {
+        if (row > courseList.size() - 1 || row < 0) {
             return;
         }
 

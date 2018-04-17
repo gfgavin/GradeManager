@@ -18,6 +18,9 @@ public class AdminController {
         updateTeacherList();
         updateStudentList();
         updateCourseList();
+        
+        studentSubList = new ArrayList<Student>();
+        selectedCourseId = -1;
 
     }
 

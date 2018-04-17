@@ -4,6 +4,7 @@ import course.Assignment;
 import java.util.ArrayList;
 
 import course.Course;
+import db.AssignmentQueries;
 import db.CourseQueries;
 import db.TeacherQueries;
 import user.Teacher;
@@ -19,6 +20,11 @@ public class TeacherController {
     public TeacherController(String username) {
         setTeacher(TeacherQueries.getTeacher(username));
         setCourseList(CourseQueries.getCoursesForTeacher(teacher.getTeacherID()));
+        
+        for(Course c : getCourseList())
+        {
+            c.setTeacher(getTeacher());
+        }
 
         setSelectedCourse(new Course());
         setSelectedAssignmentGrades(new ArrayList<Assignment>());
@@ -97,6 +103,7 @@ public class TeacherController {
     }
 
     public void getGradesForAssignment(int assignmentId) {
+        selectedAssignmentGrades.clear();
         for(Assignment a : selectedCourse.getAssignmentList())
         {
             if(a.getAssignmentID() == assignmentId)
@@ -104,6 +111,12 @@ public class TeacherController {
                 selectedAssignmentGrades.add(a);
             }
         }
+        
+    }
+
+    public void createAssignment(String newAssignmentTitle) {
+        AssignmentQueries.createAssignment(getSelectedCourse().getCourseID(), newAssignmentTitle);
+        setCourseList(CourseQueries.getCoursesForTeacher(teacher.getTeacherID()));
         
     }
 }

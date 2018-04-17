@@ -206,7 +206,7 @@ public class StudentView extends javax.swing.JFrame {
         int row = studentClassTable.getSelectedRow();
 
         ArrayList<Course> courseList = studentController.getCourseList();
-        if (row > courseList.size() - 1) {
+        if (row > courseList.size() - 1 || row < 0) {
             return;
         }
 
@@ -216,9 +216,6 @@ public class StudentView extends javax.swing.JFrame {
 
         gradesTextArea.setText(grades);
         gradesTextArea.update(gradesTextArea.getGraphics());
-        
-        //refresh the panel
-        //ActionPerformed(evt);
     }//GEN-LAST:event_viewGradesActionPerformed
 
     /**
