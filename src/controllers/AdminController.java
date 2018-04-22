@@ -13,6 +13,10 @@ public class AdminController {
     private ArrayList<Student> studentlist;
     private ArrayList<Course> courselist;
 
+    //private int selectedCourseId;
+    private Course selectedCourse;
+    private ArrayList<Student> studentSubList;
+    
     public AdminController(String username) {
         setAdmin(AdminQueries.getAdmin(username));
         updateTeacherList();
@@ -20,7 +24,8 @@ public class AdminController {
         updateCourseList();
         
         studentSubList = new ArrayList<Student>();
-        selectedCourseId = -1;
+        //selectedCourseId = -1;
+        selectedCourse = new Course();
 
     }
 
@@ -146,10 +151,9 @@ public class AdminController {
         updateCourseList();
     }
     
-    private int selectedCourseId;
-    private ArrayList<Student> studentSubList;
     public ArrayList<Student> studentsNotInCourse(int courseId) {
-        selectedCourseId = courseId;
+        setSelectedCourse(courseId);
+        //selectedCourseId = courseId;
         ArrayList<Student> studentsInCourse = CourseQueries.getStudentsForCourse(courseId);
         
         ArrayList<Student> studentsNotInCourse = new ArrayList<Student>(studentlist);
@@ -167,7 +171,7 @@ public class AdminController {
             }
             studentsNotInCourse.remove(studentToRemove);
         }
-        studentSubList = studentsNotInCourse;
+        this.studentSubList = studentsNotInCourse;
         return studentsNotInCourse;
     }
     
@@ -177,27 +181,38 @@ public class AdminController {
     }
 
     public void addStudentToCourse(int studentId) {
-        AdminQueries.enrollStudentInCourse(studentId, selectedCourseId);
+        AdminQueries.enrollStudentInCourse(studentId, selectedCourse.getCourseID());//selectedCourseId);
         updateCourseList();
     }
 
     public void setSelectedCourse(int courseId) {
-        selectedCourseId = courseId;
+        for(Course c : courselist)
+        {
+            if(c.getCourseID() == courseId)
+            {
+                selectedCourse = c;
+                return;
+            }
+        }
+        selectedCourse = new Course();
+        //selectedCourseId = courseId;
     }
 
     public void addTeacherToCourse(int teacherId) {
-        AdminQueries.addTeacherToCourse(teacherId, selectedCourseId);
+        AdminQueries.addTeacherToCourse(teacherId, selectedCourse.getCourseID());//selectedCourseId);
         updateCourseList();
     }
 
     public ArrayList<Student> studentsInCourse(int courseId) {
+        setSelectedCourse(courseId);        
+        //selectedCourseId = courseId;
         ArrayList<Student> studentsInCourse = CourseQueries.getStudentsForCourse(courseId);
         studentSubList = studentsInCourse;
         return studentsInCourse;
     }
 
     public void removeStudentFromCourse(int studentId) {
-        AdminQueries.dropStudentFromCourse(studentId, selectedCourseId);
+        AdminQueries.dropStudentFromCourse(studentId, selectedCourse.getCourseID());//selectedCourseId);
         updateCourseList();
     }
 
@@ -211,5 +226,9 @@ public class AdminController {
                 break;
             }
         }
+    }
+
+    public Course getSelectedCourse() {
+        return selectedCourse;
     }
 }
