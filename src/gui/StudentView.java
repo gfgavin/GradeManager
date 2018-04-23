@@ -1,10 +1,5 @@
 package gui;
 
-
-import javax.swing.*;
-import db.CourseQueries;
-import user.*;
-import db.*;
 import controllers.*;
 import course.Assignment;
 import course.Course;
@@ -28,8 +23,8 @@ public class StudentView extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) studentClassTable.getModel();
         model.getDataVector().removeAllElements();
         int i = 0;
-        for(Course t : courseList) {
-            model.insertRow(i,new Object[]{t.toString()});
+        for(Course c : courseList) {
+            model.insertRow(i, new Object[]{ c.getCoursename(), c.getCourseID(), c.getTeacher().getLastName(), c.getTime() });
             i++;
             
         }
@@ -119,30 +114,30 @@ public class StudentView extends javax.swing.JFrame {
 
         studentClassTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Classes"
+                "Class", "ID", "Teacher", "Time"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -410,14 +405,5 @@ public class StudentView extends javax.swing.JFrame {
     private javax.swing.JButton viewGrades;
     private javax.swing.JLabel welcomeStudentLabel;
     // End of variables declaration//GEN-END:variables
-    
-    public static void changename(JTable j) {
-        j.getColumnModel().getColumn(3).setHeaderValue("hiii");
-        
-    }
-    public static void updateGrade(JTable j) {
-        
-    }
-
 }
     

@@ -119,4 +119,8 @@ public class TeacherController {
         setCourseList(CourseQueries.getCoursesForTeacher(teacher.getTeacherID()));
         
     }
+
+    public void gradeAssignment(int studentId, int assignmentId, int grade) {
+        AssignmentQueries.gradeAssignment(studentId, assignmentId, grade);
+    }
 }

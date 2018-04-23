@@ -4,10 +4,6 @@ import controllers.AdminController;
 import course.Course;
 import javax.swing.*;
 import user.*;
-import db.*;
-import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 
@@ -21,30 +17,11 @@ public class AdminView extends javax.swing.JFrame {
     public AdminView() {
         initComponents();
 
-        addTeacherClassTable.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent evt) {
-                JTable table = (JTable) evt.getSource();
-                if (evt.getClickCount() == 2) {
-
-                    // Double-click detected
-                    int row = table.rowAtPoint(evt.getPoint());
-
-                    ArrayList<Course> courseList = adminController.getCourselist();
-                    if (row > courseList.size() - 1 || row < 0) {
-                        return;
-                    }
-
-                    //delete the teacher with given id and update the controller
-                    int courseId = courseList.get(row).getCourseID();
-                    //adminController.doSomethingWith(courseId);
-                    System.out.println(courseId);
-                }
-            }
-        });
-
         setAllPanelsInvisible();
         addTeacherPanel.setVisible(true);
+        
+        studentPasswordField.setText("");
+        teacherPasswordField.setText("");
     }
 
     public void setAdmin(String username) {
@@ -88,9 +65,9 @@ public class AdminView extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         teacherLast = new javax.swing.JTextField();
         teacherUser = new javax.swing.JTextField();
-        teacherPass = new javax.swing.JTextField();
         teacherFirst = new javax.swing.JTextField();
         insertTeacherButton = new javax.swing.JButton();
+        teacherPasswordField = new javax.swing.JPasswordField();
         removeTeacherPanel = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         removeTeacherTable = new javax.swing.JTable();
@@ -102,9 +79,9 @@ public class AdminView extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         studentLast = new javax.swing.JTextField();
         studentUser = new javax.swing.JTextField();
-        studentPass = new javax.swing.JTextField();
         studentFirst = new javax.swing.JTextField();
         insertStudentButton = new javax.swing.JButton();
+        studentPasswordField = new javax.swing.JPasswordField();
         removeStudentPanel = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         removeStudentTable = new javax.swing.JTable();
@@ -318,7 +295,7 @@ public class AdminView extends javax.swing.JFrame {
                 .addComponent(removeTeacherFromClassButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(logOutButton)
-                .addContainerGap(261, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         addTeacherPanel.setBackground(new java.awt.Color(102, 255, 255));
@@ -344,8 +321,6 @@ public class AdminView extends javax.swing.JFrame {
             }
         });
 
-        teacherPass.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
-
         teacherFirst.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         teacherFirst.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -361,6 +336,9 @@ public class AdminView extends javax.swing.JFrame {
             }
         });
 
+        teacherPasswordField.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        teacherPasswordField.setText("jPasswordField1");
+
         javax.swing.GroupLayout addTeacherPanelLayout = new javax.swing.GroupLayout(addTeacherPanel);
         addTeacherPanel.setLayout(addTeacherPanelLayout);
         addTeacherPanelLayout.setHorizontalGroup(
@@ -369,14 +347,6 @@ public class AdminView extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(addTeacherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(addTeacherPanelLayout.createSequentialGroup()
-                        .addGroup(addTeacherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(addTeacherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(teacherUser)
-                            .addComponent(teacherLast, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(addTeacherPanelLayout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(teacherFirst))
@@ -384,9 +354,19 @@ public class AdminView extends javax.swing.JFrame {
                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(addTeacherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(insertTeacherButton)
-                            .addComponent(teacherPass, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(431, Short.MAX_VALUE))
+                            .addGroup(addTeacherPanelLayout.createSequentialGroup()
+                                .addComponent(insertTeacherButton)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 147, Short.MAX_VALUE))
+                            .addComponent(teacherPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)))
+                    .addGroup(addTeacherPanelLayout.createSequentialGroup()
+                        .addGroup(addTeacherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(addTeacherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(teacherLast, javax.swing.GroupLayout.DEFAULT_SIZE, 324, Short.MAX_VALUE)
+                            .addComponent(teacherUser))))
+                .addContainerGap(395, Short.MAX_VALUE))
         );
         addTeacherPanelLayout.setVerticalGroup(
             addTeacherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -406,48 +386,48 @@ public class AdminView extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(addTeacherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(teacherPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(teacherPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(insertTeacherButton, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(288, 288, 288))
         );
 
         removeTeacherPanel.setBackground(new java.awt.Color(102, 255, 255));
 
         removeTeacherTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Teachers"
+                "First Name", "Last Name", "Username", "ID"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -508,8 +488,6 @@ public class AdminView extends javax.swing.JFrame {
             }
         });
 
-        studentPass.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
-
         studentFirst.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         studentFirst.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -525,34 +503,35 @@ public class AdminView extends javax.swing.JFrame {
             }
         });
 
+        studentPasswordField.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        studentPasswordField.setText("jPasswordField1");
+
         javax.swing.GroupLayout addStudentPanelLayout = new javax.swing.GroupLayout(addStudentPanel);
         addStudentPanel.setLayout(addStudentPanelLayout);
         addStudentPanelLayout.setHorizontalGroup(
             addStudentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(addStudentPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(addStudentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(addStudentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(addStudentPanelLayout.createSequentialGroup()
-                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(studentLast, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(addStudentPanelLayout.createSequentialGroup()
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(studentFirst)))
-                    .addGroup(addStudentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(addStudentPanelLayout.createSequentialGroup()
-                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(studentUser))
-                        .addGroup(addStudentPanelLayout.createSequentialGroup()
-                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(addStudentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(insertStudentButton)
-                                .addComponent(studentPass, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(431, Short.MAX_VALUE))
+                .addGroup(addStudentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(addStudentPanelLayout.createSequentialGroup()
+                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(studentLast))
+                    .addGroup(addStudentPanelLayout.createSequentialGroup()
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(studentFirst, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(addStudentPanelLayout.createSequentialGroup()
+                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(studentUser))
+                    .addGroup(addStudentPanelLayout.createSequentialGroup()
+                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(addStudentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(insertStudentButton)
+                            .addComponent(studentPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE))))
+                .addContainerGap(378, Short.MAX_VALUE))
         );
         addStudentPanelLayout.setVerticalGroup(
             addStudentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -572,10 +551,10 @@ public class AdminView extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(addStudentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(studentPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(studentPasswordField))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(insertStudentButton, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(280, Short.MAX_VALUE))
+                .addGap(280, 280, 280))
         );
 
         removeStudentPanel.setBackground(new java.awt.Color(102, 255, 255));
@@ -584,38 +563,38 @@ public class AdminView extends javax.swing.JFrame {
 
         removeStudentTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Students"
+                "First Name", "Last Name", "Username", "ID"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -717,38 +696,38 @@ public class AdminView extends javax.swing.JFrame {
 
         removeClassTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Classes"
+                "Class", "ID", "Teacher", "Time"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -792,38 +771,38 @@ public class AdminView extends javax.swing.JFrame {
 
         addStudentClassTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Classes"
+                "Class", "ID", "Teacher", "Time"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -844,38 +823,38 @@ public class AdminView extends javax.swing.JFrame {
 
         studentsToAddTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Students"
+                "First Name", "Last Name", "Username", "ID"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -933,38 +912,38 @@ public class AdminView extends javax.swing.JFrame {
 
         removeStudentClassTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Classes"
+                "Class", "ID", "Teacher", "Time"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -985,38 +964,38 @@ public class AdminView extends javax.swing.JFrame {
 
         studentsToRemoveTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Students"
+                "First Name", "Last Name", "Username", "ID"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -1050,7 +1029,7 @@ public class AdminView extends javax.swing.JFrame {
                     .addComponent(removeStudentSelectedClassLabel)
                     .addComponent(removeStudentFromClass)
                     .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 356, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(302, Short.MAX_VALUE))
+                .addContainerGap(228, Short.MAX_VALUE))
         );
         removeStudentFromClassPanelLayout.setVerticalGroup(
             removeStudentFromClassPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1065,7 +1044,7 @@ public class AdminView extends javax.swing.JFrame {
                     .addComponent(removeStudentSelectedClassLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(removeStudentFromClass)
-                .addContainerGap(116, Short.MAX_VALUE))
+                .addContainerGap(111, Short.MAX_VALUE))
         );
 
         addTeacherToClassPanel.setBackground(new java.awt.Color(102, 255, 255));
@@ -1074,38 +1053,38 @@ public class AdminView extends javax.swing.JFrame {
 
         addTeacherClassTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Classes"
+                "Class", "ID", "Teacher", "Time"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -1126,38 +1105,38 @@ public class AdminView extends javax.swing.JFrame {
 
         teachersToAddTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Teachers"
+                "First Name", "Last Name", "User Name", "ID"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -1215,38 +1194,38 @@ public class AdminView extends javax.swing.JFrame {
 
         removeTeacherFromClassTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Classes"
+                "Class", "ID", "Teacher", "Time"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -1394,7 +1373,7 @@ public class AdminView extends javax.swing.JFrame {
         model.getDataVector().removeAllElements();
         int i = 0;
         for (Teacher t : teacherList) {
-            model.insertRow(i, new Object[]{t.toString()});
+            model.insertRow(i, new Object[]{ t.getFirstName(), t.getLastName(), t.getUserName(), t.getTeacherID() });
             i++;
 
         }
@@ -1411,8 +1390,8 @@ public class AdminView extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) addTeacherClassTable.getModel();
         model.getDataVector().removeAllElements();
         int i = 0;
-        for (Course t : courseList) {
-            model.insertRow(i, new Object[]{t.toString()});
+        for (Course c : courseList) {
+            model.insertRow(i, new Object[]{ c.getCoursename(), c.getCourseID(), c.getTeacher().getLastName(), c.getTime() });
             i++;
 
         }
@@ -1429,8 +1408,8 @@ public class AdminView extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) removeTeacherFromClassTable.getModel();
         model.getDataVector().removeAllElements();
         int i = 0;
-        for (Course t : courseList) {
-            model.insertRow(i, new Object[]{t.toString()});
+        for (Course c : courseList) {
+            model.insertRow(i, new Object[]{ c.getCoursename(), c.getCourseID(), c.getTeacher().getLastName(), c.getTime() });
             i++;
 
         }
@@ -1456,9 +1435,22 @@ public class AdminView extends javax.swing.JFrame {
         String first = teacherFirst.getText();
         String last = teacherLast.getText();
         String user = teacherUser.getText();
-        String pass = teacherPass.getText();
-
-        adminController.createTeacher(first, last, user, pass);
+        String password = "";
+        char[] passwordCharacters = teacherPasswordField.getPassword();
+        for (char c : passwordCharacters) {
+            password += c;
+        }
+        
+        String[] entries = new String[]{first, last, user, password};
+        for(String s : entries)
+        {
+            if(s.length() > 32 || s.isEmpty())
+            {
+                return;
+            }
+        }
+        
+        adminController.createTeacher(first, last, user, password);
     }//GEN-LAST:event_insertTeacherButtonActionPerformed
 
     private void removeTeacherActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeTeacherActionPerformed
@@ -1489,9 +1481,21 @@ public class AdminView extends javax.swing.JFrame {
         String first = studentFirst.getText();
         String last = studentLast.getText();
         String user = studentUser.getText();
-        String pass = studentPass.getText();
-
-        adminController.createStudent(first, last, user, pass);
+        String password = "";
+        char[] passwordCharacters = studentPasswordField.getPassword();
+        for (char c : passwordCharacters) {
+            password += c;
+        }
+        
+        String[] entries = new String[]{first, last, user, password};
+        for(String s : entries)
+        {
+            if(s.length() > 32 || s.isEmpty())
+            {
+                return;
+            }
+        }
+            adminController.createStudent(first, last, user, password);
     }//GEN-LAST:event_insertStudentButtonActionPerformed
 
     private void removeStudentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeStudentActionPerformed
@@ -1518,8 +1522,8 @@ public class AdminView extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) removeStudentTable.getModel();
         model.getDataVector().removeAllElements();
         int i = 0;
-        for (Student t : studentList) {
-            model.insertRow(i, new Object[]{t.toString()});
+        for (Student s : studentList) {
+            model.insertRow(i, new Object[]{ s.getFirstName(), s.getLastName(), s.getUserName(), s.getStudentID() });
             i++;
 
         }
@@ -1535,6 +1539,11 @@ public class AdminView extends javax.swing.JFrame {
     private void insertClassButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertClassButtonActionPerformed
         String name = className.getText();
         String time = classTime.getText();
+        
+        if(name.isEmpty() || name.length() > 32 || time.isEmpty() || time.length() > 32)
+        {
+            return;
+        }
 
         adminController.createCourse(name, time);
     }//GEN-LAST:event_insertClassButtonActionPerformed
@@ -1568,8 +1577,8 @@ public class AdminView extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) removeClassTable.getModel();
         model.getDataVector().removeAllElements();
         int i = 0;
-        for (Course t : courseList) {
-            model.insertRow(i, new Object[]{t.toString()});
+        for (Course c : courseList) {
+            model.insertRow(i, new Object[]{ c.getCoursename(), c.getCourseID(), c.getTeacher().getLastName(), c.getTime() });
             i++;
 
         }
@@ -1595,8 +1604,8 @@ public class AdminView extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) studentsToAddTable.getModel();
         model.getDataVector().removeAllElements();
         int i = 0;
-        for (Student t : studentsNotInCourse) {
-            model.insertRow(i, new Object[]{t.toString()});
+        for (Student s : studentsNotInCourse) {
+            model.insertRow(i, new Object[]{ s.getFirstName(), s.getLastName(), s.getUserName(), s.getStudentID() });
             i++;
 
         }
@@ -1633,8 +1642,8 @@ public class AdminView extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) addStudentClassTable.getModel();
         model.getDataVector().removeAllElements();
         int i = 0;
-        for (Course t : courseList) {
-            model.insertRow(i, new Object[]{t.toString()});
+        for (Course c : courseList) {
+            model.insertRow(i, new Object[]{ c.getCoursename(), c.getCourseID(), c.getTeacher().getLastName(), c.getTime() });
             i++;
 
         }
@@ -1661,7 +1670,7 @@ public class AdminView extends javax.swing.JFrame {
         model.getDataVector().removeAllElements();
         int i = 0;
         for (Teacher t : teacherList) {
-            model.insertRow(i, new Object[]{t.toString()});
+            model.insertRow(i, new Object[]{ t.getFirstName(), t.getLastName(), t.getUserName(), t.getTeacherID() });
             i++;
 
         }
@@ -1704,8 +1713,8 @@ public class AdminView extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) studentsToRemoveTable.getModel();
         model.getDataVector().removeAllElements();
         int i = 0;
-        for (Student t : studentsInCourse) {
-            model.insertRow(i, new Object[]{t.toString()});
+        for (Student s : studentsInCourse) {
+            model.insertRow(i, new Object[]{ s.getFirstName(), s.getLastName(), s.getUserName(), s.getStudentID() });
             i++;
 
         }
@@ -1742,8 +1751,8 @@ public class AdminView extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) removeStudentClassTable.getModel();
         model.getDataVector().removeAllElements();
         int i = 0;
-        for (Course t : courseList) {
-            model.insertRow(i, new Object[]{t.toString()});
+        for (Course c : courseList) {
+            model.insertRow(i, new Object[]{ c.getCoursename(), c.getCourseID(), c.getTeacher().getLastName(), c.getTime() });
             i++;
 
         }
@@ -1893,13 +1902,13 @@ public class AdminView extends javax.swing.JFrame {
     private javax.swing.JButton selectClass4Teacher;
     private javax.swing.JTextField studentFirst;
     private javax.swing.JTextField studentLast;
-    private javax.swing.JTextField studentPass;
+    private javax.swing.JPasswordField studentPasswordField;
     private javax.swing.JTextField studentUser;
     private javax.swing.JTable studentsToAddTable;
     private javax.swing.JTable studentsToRemoveTable;
     private javax.swing.JTextField teacherFirst;
     private javax.swing.JTextField teacherLast;
-    private javax.swing.JTextField teacherPass;
+    private javax.swing.JPasswordField teacherPasswordField;
     private javax.swing.JTextField teacherUser;
     private javax.swing.JTable teachersToAddTable;
     private javax.swing.JLabel usernameLabel;

@@ -1,11 +1,6 @@
 package gui;
 
 import db.ConfirmCredentials;
-import java.awt.Image;
-import java.io.File;
-import java.io.IOException;
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 
 /**
  * Displays the login screen
@@ -170,7 +165,7 @@ public class Login extends javax.swing.JFrame {
             password += c;
         }
 
-        if (!username.isEmpty() && !password.isEmpty()) {
+        if (!username.isEmpty() && username.length() < 33 && !password.isEmpty() && password.length() < 33) {
             int userNameAndPasswordMatch = ConfirmCredentials.confirmUser(username, password);
             if (userNameAndPasswordMatch == 0) {
                 loginStatusLabel.setText("*Username and Password do not match*");

@@ -3,8 +3,6 @@ package gui;
 import controllers.TeacherController;
 import course.Assignment;
 import course.Course;
-import javax.swing.*;
-import db.*;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 
@@ -23,13 +21,11 @@ public class TeacherView extends javax.swing.JFrame {
         teacherController = new TeacherController(username);
         ArrayList<Course> courseList = teacherController.getCourseList();
 
-        jTextArea1.setText(teacherController.toString());
-
         DefaultTableModel model = (DefaultTableModel) teacherClassTable.getModel();
         model.getDataVector().removeAllElements();
         int i = 0;
-        for (Course t : courseList) {
-            model.insertRow(i, new Object[]{t.toString()});
+        for (Course c : courseList) {
+            model.insertRow(i, new Object[]{ c.getCoursename(), c.getCourseID(), c.getTeacher().getLastName(), c.getTime() });
             i++;
 
         }
@@ -61,8 +57,6 @@ public class TeacherView extends javax.swing.JFrame {
         teacherClassTable = new javax.swing.JTable();
         viewAssignments = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
         addAssignmentButton = new javax.swing.JButton();
         viewGradesButton = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -87,10 +81,10 @@ public class TeacherView extends javax.swing.JFrame {
         jPanel2.setPreferredSize(new java.awt.Dimension(1200, 81));
 
         welcomeTeacherLabel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        welcomeTeacherLabel.setText("jLabel3");
+        welcomeTeacherLabel.setText("welcome");
 
         usernameTeacherLabel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        usernameTeacherLabel.setText("jLabel4");
+        usernameTeacherLabel.setText("username");
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/teamOneIconSmall.png"))); // NOI18N
 
@@ -129,25 +123,25 @@ public class TeacherView extends javax.swing.JFrame {
 
         teacherClassTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Classes"
+                "Class", "ID", "Teacher", "Time"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -192,10 +186,6 @@ public class TeacherView extends javax.swing.JFrame {
         );
 
         jPanel1.setBackground(new java.awt.Color(153, 255, 255));
-
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
 
         addAssignmentButton.setText("Add New Assignment");
         addAssignmentButton.addActionListener(new java.awt.event.ActionListener() {
@@ -253,33 +243,33 @@ public class TeacherView extends javax.swing.JFrame {
 
         studentGradeTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null}
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
             },
             new String [] {
-                "Students"
+                "Student", "Grade"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false
+                false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -324,7 +314,6 @@ public class TeacherView extends javax.swing.JFrame {
                             .addComponent(courseLabel))))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 381, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 356, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -334,7 +323,7 @@ public class TeacherView extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(enterGradeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addComponent(assignmentLabel))
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 13, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -355,19 +344,13 @@ public class TeacherView extends javax.swing.JFrame {
                         .addComponent(enterGradeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(updateGradeButton)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(7, 7, 7)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(assignmentTitleTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(addAssignmentButton)
-                        .addGap(23, 23, 23)))
-                .addContainerGap())
+                .addGap(11, 11, 11)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(assignmentTitleTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(addAssignmentButton)
+                .addGap(34, 34, 34))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -380,7 +363,7 @@ public class TeacherView extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 372, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 566, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(32, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -460,7 +443,7 @@ public class TeacherView extends javax.swing.JFrame {
         int i = 0;
         for (Assignment t : assignmentList) {
             model.insertRow(i, new Object[]{t.getStudent().getFirstName() + " " + t.getStudent().getLastName()
-                + " (Grade: " + t.getGrade() + ")"});
+                , t.getGrade() });
             i++;
 
         }
@@ -487,7 +470,12 @@ public class TeacherView extends javax.swing.JFrame {
 
         try {
             int grade = Integer.parseInt(gradeString);
-            AssignmentQueries.gradeAssignment(studentId, assignmentId, grade);
+            if(grade > 999999999)
+            {
+                return;
+            }
+            
+            teacherController.gradeAssignment(studentId, assignmentId, grade);
             assignmentList.get(row).setGrade(grade);
 
             DefaultTableModel model = (DefaultTableModel) studentGradeTable.getModel();
@@ -495,7 +483,7 @@ public class TeacherView extends javax.swing.JFrame {
             int i = 0;
             for (Assignment t : assignmentList) {
                 model.insertRow(i, new Object[]{t.getStudent().getFirstName() + " " + t.getStudent().getLastName()
-                    + " (Grade: " + t.getGrade() + ")"});
+                    , t.getGrade() });
                 i++;
 
             }
@@ -592,11 +580,9 @@ public class TeacherView extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane5;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JButton logoutButton;
     private javax.swing.JTable studentGradeTable;
     private javax.swing.JTable teacherClassTable;
@@ -608,14 +594,4 @@ public class TeacherView extends javax.swing.JFrame {
     private javax.swing.JLabel welcomeLabel;
     private javax.swing.JLabel welcomeTeacherLabel;
     // End of variables declaration//GEN-END:variables
-
-    public static void changename(JTable j) {
-        j.getColumnModel().getColumn(3).setHeaderValue("hiii");
-
-    }
-
-    public static void updateGrade(JTable j) {
-
-    }
-
 }
