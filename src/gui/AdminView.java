@@ -1617,6 +1617,10 @@ public class AdminView extends javax.swing.JFrame {
         int studentId = studentList.get(row).getStudentID();
         adminController.addStudentToCourse(studentId);
 
+        DefaultTableModel model = (DefaultTableModel) studentsToAddTable.getModel();
+        model.removeRow(row);
+        model.addRow(new Object[]{" "});
+        
         //refresh the panel
         addStudentToClassButtonActionPerformed(evt);
     }//GEN-LAST:event_addStudentToClassActionPerformed
@@ -1721,7 +1725,11 @@ public class AdminView extends javax.swing.JFrame {
         //remove the student with given id and update the controller
         int studentId = studentList.get(row).getStudentID();
         adminController.removeStudentFromCourse(studentId);
-
+        
+        DefaultTableModel model = (DefaultTableModel) studentsToRemoveTable.getModel();
+        model.removeRow(row);
+        model.addRow(new Object[]{" "});
+        
         //refresh the panel
         removeStudentFromClassButtonActionPerformed(evt);
     }//GEN-LAST:event_removeStudentFromClassActionPerformed

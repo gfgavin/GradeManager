@@ -179,7 +179,7 @@
                   <Component id="removeTeacherFromClassButton" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="logOutButton" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="261" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -426,7 +426,7 @@
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="insertTeacherButton" min="-2" pref="58" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace pref="288" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -1162,7 +1162,7 @@
                           <Component id="removeStudentFromClass" min="-2" max="-2" attributes="0"/>
                           <Component id="jScrollPane10" min="-2" pref="356" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="302" max="32767" attributes="0"/>
+                      <EmptySpace pref="228" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -1181,7 +1181,7 @@
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="removeStudentFromClass" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="116" max="32767" attributes="0"/>
+                      <EmptySpace pref="111" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>

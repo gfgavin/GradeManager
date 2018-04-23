@@ -104,4 +104,13 @@ public class StudentController {
         return grades;
     }
 
+    public Course getCourse(int courseId) {
+        for (Course c : courseList) {
+            if (c.getCourseID() == courseId) {
+                return c;
+            }
+        }
+        return new Course();
+    }
+
 }

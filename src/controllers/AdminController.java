@@ -181,7 +181,15 @@ public class AdminController {
     }
 
     public void addStudentToCourse(int studentId) {
-        AdminQueries.enrollStudentInCourse(studentId, selectedCourse.getCourseID());//selectedCourseId);
+        AdminQueries.enrollStudentInCourse(studentId, selectedCourse.getCourseID());
+        for(int i = 0; i < studentSubList.size(); i++)
+        {
+            if(studentSubList.get(i).getStudentID() == studentId)
+            {
+                studentSubList.remove(i);
+                break;
+            }
+        }
         updateCourseList();
     }
 
@@ -212,7 +220,15 @@ public class AdminController {
     }
 
     public void removeStudentFromCourse(int studentId) {
-        AdminQueries.dropStudentFromCourse(studentId, selectedCourse.getCourseID());//selectedCourseId);
+        AdminQueries.dropStudentFromCourse(studentId, selectedCourse.getCourseID());
+        for(int i = 0; i < studentSubList.size(); i++)
+        {
+            if(studentSubList.get(i).getStudentID() == studentId)
+            {
+                studentSubList.remove(i);
+                break;
+            }
+        }
         updateCourseList();
     }
 

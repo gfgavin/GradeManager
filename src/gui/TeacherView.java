@@ -33,7 +33,7 @@ public class TeacherView extends javax.swing.JFrame {
             i++;
 
         }
-        for (int j = courseList.size(); j < 25; j++) {
+        for (int j = courseList.size(); j < 12; j++) {
             model.addRow(new Object[]{" "});
         }
         
@@ -109,14 +109,11 @@ public class TeacherView extends javax.swing.JFrame {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(welcomeTeacherLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(usernameTeacherLabel))
-                    .addComponent(jLabel3))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(welcomeTeacherLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(usernameTeacherLabel))
+            .addComponent(jLabel3)
         );
 
         jPanel3.setBackground(new java.awt.Color(153, 255, 255));
@@ -132,19 +129,6 @@ public class TeacherView extends javax.swing.JFrame {
 
         teacherClassTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
                 {null},
                 {null},
                 {null},
@@ -204,7 +188,7 @@ public class TeacherView extends javax.swing.JFrame {
                 .addComponent(viewAssignments)
                 .addGap(18, 18, 18)
                 .addComponent(logoutButton)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(270, Short.MAX_VALUE))
         );
 
         jPanel1.setBackground(new java.awt.Color(153, 255, 255));
@@ -248,21 +232,6 @@ public class TeacherView extends javax.swing.JFrame {
                 {null},
                 {null},
                 {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
                 {null}
             },
             new String [] {
@@ -284,11 +253,6 @@ public class TeacherView extends javax.swing.JFrame {
 
         studentGradeTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
                 {null},
                 {null},
                 {null},
@@ -413,7 +377,7 @@ public class TeacherView extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 944, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 372, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 566, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -422,12 +386,12 @@ public class TeacherView extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(52, Short.MAX_VALUE))
         );
 
         pack();
@@ -461,7 +425,7 @@ public class TeacherView extends javax.swing.JFrame {
             i++;
 
         }
-        for (int j = assignmentList.size(); j < 25; j++) {
+        for (int j = assignmentList.size(); j < 20; j++) {
             model.addRow(new Object[]{" "});
         }
 
@@ -470,7 +434,7 @@ public class TeacherView extends javax.swing.JFrame {
         DefaultTableModel model2 = (DefaultTableModel) studentGradeTable.getModel();
         model2.getDataVector().removeAllElements();
         
-        for (int j = 0; j < 25; j++) {
+        for (int j = 0; j < 20; j++) {
             model2.addRow(new Object[]{" "});
         }
         assignmentLabel.setText(" ");
@@ -500,7 +464,7 @@ public class TeacherView extends javax.swing.JFrame {
             i++;
 
         }
-        for (int j = assignmentList.size(); j < 25; j++) {
+        for (int j = assignmentList.size(); j < 20; j++) {
             model.addRow(new Object[]{" "});
         }
         
@@ -535,7 +499,7 @@ public class TeacherView extends javax.swing.JFrame {
                 i++;
 
             }
-            for (int j = assignmentList.size(); j < 25; j++) {
+            for (int j = assignmentList.size(); j < 20; j++) {
                 model.addRow(new Object[]{" "});
             }
         } catch (Exception e) {
@@ -559,7 +523,7 @@ public class TeacherView extends javax.swing.JFrame {
                 i++;
 
             }
-            for (int j = assignmentList.size(); j < 25; j++) {
+            for (int j = assignmentList.size(); j < 20; j++) {
                 model.addRow(new Object[]{" "});
             }
         }
