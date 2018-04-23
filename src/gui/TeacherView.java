@@ -396,7 +396,6 @@ public class TeacherView extends javax.swing.JFrame {
 
         //show assignments and grades for selected course
         int courseId = courseList.get(row).getCourseID();
-        //String grades = teacherController.viewGradesForCourse(courseId);
 
         ArrayList<Assignment> assignmentList = teacherController.getAssignmentsForCourse(courseId);
 
@@ -433,7 +432,6 @@ public class TeacherView extends javax.swing.JFrame {
 
         //show assignments and grades for selected course
         int assignmentId = distinctAssignmentList.get(row).getAssignmentID();
-        //String grades = teacherController.viewGradesForCourse(courseId);
 
         teacherController.getGradesForAssignment(assignmentId);
         ArrayList<Assignment> assignmentList = teacherController.getSelectedAssignmentGrades();
@@ -572,14 +570,11 @@ public class TeacherView extends javax.swing.JFrame {
     private javax.swing.JLabel courseLabel;
     private javax.swing.JTextField enterGradeTextField;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane5;
@@ -587,11 +582,9 @@ public class TeacherView extends javax.swing.JFrame {
     private javax.swing.JTable studentGradeTable;
     private javax.swing.JTable teacherClassTable;
     private javax.swing.JButton updateGradeButton;
-    private javax.swing.JLabel usernameLabel;
     private javax.swing.JLabel usernameTeacherLabel;
     private javax.swing.JButton viewAssignments;
     private javax.swing.JButton viewGradesButton;
-    private javax.swing.JLabel welcomeLabel;
     private javax.swing.JLabel welcomeTeacherLabel;
     // End of variables declaration//GEN-END:variables
 }

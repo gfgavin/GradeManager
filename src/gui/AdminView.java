@@ -2,10 +2,10 @@ package gui;
 
 import controllers.AdminController;
 import course.Course;
-import javax.swing.*;
 import user.*;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
+import passwordEncryption.Password;
 
 public class AdminView extends javax.swing.JFrame {
 
@@ -1435,13 +1435,9 @@ public class AdminView extends javax.swing.JFrame {
         String first = teacherFirst.getText();
         String last = teacherLast.getText();
         String user = teacherUser.getText();
-        String password = "";
-        char[] passwordCharacters = teacherPasswordField.getPassword();
-        for (char c : passwordCharacters) {
-            password += c;
-        }
+        char[] passwordChars = teacherPasswordField.getPassword();
         
-        String[] entries = new String[]{first, last, user, password};
+        String[] entries = new String[]{first, last, user};
         for(String s : entries)
         {
             if(s.length() > 32 || s.isEmpty())
@@ -1450,6 +1446,12 @@ public class AdminView extends javax.swing.JFrame {
             }
         }
         
+        if(passwordChars.length == 0 || passwordChars.length > 32)
+        {
+            return;
+        }
+        
+        String password = Password.encrypt(passwordChars);
         adminController.createTeacher(first, last, user, password);
     }//GEN-LAST:event_insertTeacherButtonActionPerformed
 
@@ -1481,13 +1483,9 @@ public class AdminView extends javax.swing.JFrame {
         String first = studentFirst.getText();
         String last = studentLast.getText();
         String user = studentUser.getText();
-        String password = "";
-        char[] passwordCharacters = studentPasswordField.getPassword();
-        for (char c : passwordCharacters) {
-            password += c;
-        }
+        char[] passwordChars = studentPasswordField.getPassword();
         
-        String[] entries = new String[]{first, last, user, password};
+        String[] entries = new String[]{first, last, user};
         for(String s : entries)
         {
             if(s.length() > 32 || s.isEmpty())
@@ -1495,7 +1493,14 @@ public class AdminView extends javax.swing.JFrame {
                 return;
             }
         }
-            adminController.createStudent(first, last, user, password);
+        
+        if(passwordChars.length == 0 || passwordChars.length > 32)
+        {
+            return;
+        }
+        
+        String password = Password.encrypt(passwordChars);
+        adminController.createStudent(first, last, user, password);
     }//GEN-LAST:event_insertStudentButtonActionPerformed
 
     private void removeStudentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeStudentActionPerformed
@@ -1914,15 +1919,6 @@ public class AdminView extends javax.swing.JFrame {
     private javax.swing.JLabel usernameLabel;
     private javax.swing.JLabel welcomeLabel;
     // End of variables declaration//GEN-END:variables
-
-    public static void changename(JTable j) {
-        j.getColumnModel().getColumn(3).setHeaderValue("hiii");
-
-    }
-
-    public static void updateGrade(JTable j) {
-
-    }
 
     private void setAllPanelsInvisible() {
         addTeacherPanel.setVisible(false);
