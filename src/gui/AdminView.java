@@ -49,6 +49,9 @@ public class AdminView extends javax.swing.JFrame {
 
     public void setAdmin(String username) {
         adminController = new AdminController(username);
+        welcomeLabel.setText("Welcome, " + adminController.getAdmin().getFirstName() + " " 
+                + adminController.getAdmin().getLastName() + "!");
+        usernameLabel.setText("Username: "+ username);
     }
 
     /**
@@ -61,6 +64,10 @@ public class AdminView extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel2 = new javax.swing.JPanel();
+        welcomeLabel = new javax.swing.JLabel();
+        usernameLabel = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         addTeacherButton = new javax.swing.JButton();
         removeTeacherButton = new javax.swing.JButton();
@@ -142,19 +149,50 @@ public class AdminView extends javax.swing.JFrame {
         removeTeacherFromClass = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Electronic Assignment And Attendance Guide");
         setPreferredSize(new java.awt.Dimension(1200, 700));
 
         jPanel2.setBackground(new java.awt.Color(102, 255, 255));
+
+        welcomeLabel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        welcomeLabel.setText("jLabel11");
+
+        usernameLabel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        usernameLabel.setText("jLabel11");
+
+        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/teamOneIconSmall.png"))); // NOI18N
+        jLabel13.setToolTipText("");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(welcomeLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel11))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(usernameLabel)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel13))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 78, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(welcomeLabel)
+                            .addComponent(jLabel11))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(usernameLabel))
+                    .addComponent(jLabel13))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel3.setBackground(new java.awt.Color(102, 255, 255));
@@ -280,7 +318,7 @@ public class AdminView extends javax.swing.JFrame {
                 .addComponent(removeTeacherFromClassButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(logOutButton)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(261, Short.MAX_VALUE))
         );
 
         addTeacherPanel.setBackground(new java.awt.Color(102, 255, 255));
@@ -371,7 +409,7 @@ public class AdminView extends javax.swing.JFrame {
                     .addComponent(teacherPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(insertTeacherButton, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(291, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         removeTeacherPanel.setBackground(new java.awt.Color(102, 255, 255));
@@ -1797,6 +1835,8 @@ public class AdminView extends javax.swing.JFrame {
     private javax.swing.JButton insertTeacherButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -1854,6 +1894,8 @@ public class AdminView extends javax.swing.JFrame {
     private javax.swing.JTextField teacherPass;
     private javax.swing.JTextField teacherUser;
     private javax.swing.JTable teachersToAddTable;
+    private javax.swing.JLabel usernameLabel;
+    private javax.swing.JLabel welcomeLabel;
     // End of variables declaration//GEN-END:variables
 
     public static void changename(JTable j) {
