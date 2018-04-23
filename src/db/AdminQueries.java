@@ -17,7 +17,7 @@ public class AdminQueries {
 	public static Administrator getAdmin(String username) {
 		Administrator admin = new Administrator();
 		try {
-			connection = DriverManager.getConnection(DBInfo.URL, DBInfo.USER, DBInfo.PASSWORD);
+			connect();
 			pstmt = connection.prepareStatement("SELECT * FROM Admin WHERE userlogin  = '" + username + "'");
 			rs = pstmt.executeQuery();
 
@@ -39,7 +39,7 @@ public class AdminQueries {
 
 	public static void createTeacher(String firstname, String lastname, String userlogin, String userpass) {
 		try {
-			connection = DriverManager.getConnection(DBInfo.URL, DBInfo.USER, DBInfo.PASSWORD);
+			connect();
 			pstmt = connection.prepareStatement(
 					"INSERT INTO Teacher (firstname, lastname, userlogin, userpass) VALUES (?,?,?,?)");
 			pstmt.setString(1, firstname);
@@ -57,7 +57,7 @@ public class AdminQueries {
 
 	public static void createStudent(String firstname, String lastname, String userlogin, String userpass) {
 		try {
-			connection = DriverManager.getConnection(DBInfo.URL, DBInfo.USER, DBInfo.PASSWORD);
+			connect();
 			pstmt = connection.prepareStatement(
 					"INSERT INTO Student (firstname, lastname, userlogin, userpass) VALUES (?,?,?,?)");
 			pstmt.setString(1, firstname);
@@ -75,7 +75,7 @@ public class AdminQueries {
 
 	public static void createCourse(String coursename, String time) {
 		try {
-			connection = DriverManager.getConnection(DBInfo.URL, DBInfo.USER, DBInfo.PASSWORD);
+			connect();
 			pstmt = connection.prepareStatement("INSERT INTO Course (coursename, time, teacherid) VALUES (?,?,?)");
 			pstmt.setString(1, coursename);
 			pstmt.setString(2, time);
@@ -91,7 +91,7 @@ public class AdminQueries {
 
 	public static void deleteTeacher(int teacherid) {
 		try {
-			connection = DriverManager.getConnection(DBInfo.URL, DBInfo.USER, DBInfo.PASSWORD);
+			connect();
 			pstmt = connection.prepareStatement("DELETE FROM Teacher WHERE teacherid = " + teacherid);
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -104,7 +104,7 @@ public class AdminQueries {
 
 	public static void deleteStudent(int studentid) {
 		try {
-			connection = DriverManager.getConnection(DBInfo.URL, DBInfo.USER, DBInfo.PASSWORD);
+			connect();
 			pstmt = connection.prepareStatement("DELETE FROM Student WHERE studentid = " + studentid);
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -117,7 +117,7 @@ public class AdminQueries {
 
 	public static void deleteCourse(int courseid) {
 		try {
-			connection = DriverManager.getConnection(DBInfo.URL, DBInfo.USER, DBInfo.PASSWORD);
+			connect();
 			pstmt = connection.prepareStatement("DELETE FROM Course WHERE courseid = " + courseid);
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -130,7 +130,7 @@ public class AdminQueries {
 
 	public static void addTeacherToCourse(int teacherid, int courseid) {
 		try {
-			connection = DriverManager.getConnection(DBInfo.URL, DBInfo.USER, DBInfo.PASSWORD);
+			connect();
 			pstmt = connection
 					.prepareStatement("UPDATE Course SET teacherid = " + teacherid + " WHERE courseid = " + courseid);
 			pstmt.executeUpdate();
@@ -144,7 +144,7 @@ public class AdminQueries {
 
 	public static void removeTeacherFromCourse(int courseid) {
 		try {
-			connection = DriverManager.getConnection(DBInfo.URL, DBInfo.USER, DBInfo.PASSWORD);
+			connect();
 			pstmt = connection
 					.prepareStatement("UPDATE Course SET teacherid = " + null + " WHERE courseid = " + courseid);
 			pstmt.executeUpdate();
@@ -158,7 +158,7 @@ public class AdminQueries {
 
 	public static void enrollStudentInCourse(int studentid, int courseid) {
 		try {
-			connection = DriverManager.getConnection(DBInfo.URL, DBInfo.USER, DBInfo.PASSWORD);
+			connect();
 			pstmt = connection.prepareStatement("INSERT INTO StudentCourse VALUES (" + studentid + ", " + courseid + ")");
 			pstmt.executeUpdate();
 			
@@ -190,7 +190,7 @@ public class AdminQueries {
 
 	public static void dropStudentFromCourse(int studentid, int courseid) {
 		try {
-			connection = DriverManager.getConnection(DBInfo.URL, DBInfo.USER, DBInfo.PASSWORD);
+			connect();
 			pstmt = connection.prepareStatement(
 					"DELETE FROM StudentCourse WHERE studentid = " + studentid + " AND courseid = " + courseid);
 			pstmt.executeUpdate();
@@ -220,6 +220,12 @@ public class AdminQueries {
 			closeConnection();
 		}
 	}
+        
+        private static void connect() throws SQLException
+        {
+            //connection = DriverManager.getConnection(DBInfo.URL, DBInfo.USER, DBInfo.PASSWORD);
+            connection = DataSource.getInstance().getConnection();
+        }
 
 	private static void closeConnection() {
 		try {

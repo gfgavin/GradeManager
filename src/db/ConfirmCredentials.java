@@ -26,7 +26,7 @@ public class ConfirmCredentials
 	public static int confirmUser(String username, String password) {
 		int userType = 0;
 		try {
-			connection = DriverManager.getConnection(DBInfo.URL, DBInfo.USER, DBInfo.PASSWORD);
+			connect();
 			pstmt = connection.prepareStatement("SELECT userpass FROM Student WHERE userlogin  = '" + username + "'");
 			rs = pstmt.executeQuery();
 			
@@ -47,7 +47,7 @@ public class ConfirmCredentials
 		}
                 
                 try {
-			connection = DriverManager.getConnection(DBInfo.URL, DBInfo.USER, DBInfo.PASSWORD);
+			connect();
 			pstmt = connection.prepareStatement("SELECT userpass FROM Teacher WHERE userlogin  = '" + username + "'");
 			rs = pstmt.executeQuery();
 			
@@ -68,7 +68,7 @@ public class ConfirmCredentials
 		}
                 
                 try {
-			connection = DriverManager.getConnection(DBInfo.URL, DBInfo.USER, DBInfo.PASSWORD);
+			connect();
 			pstmt = connection.prepareStatement("SELECT userpass FROM Admin WHERE userlogin  = '" + username + "'");
 			rs = pstmt.executeQuery();
 			
@@ -89,6 +89,12 @@ public class ConfirmCredentials
 		}
 		return userType;
 	}
+        
+        private static void connect() throws SQLException
+        {
+            //connection = DriverManager.getConnection(DBInfo.URL, DBInfo.USER, DBInfo.PASSWORD);
+            connection = DataSource.getInstance().getConnection();
+        }
         
 	private static void closeConnection() {
 		try {

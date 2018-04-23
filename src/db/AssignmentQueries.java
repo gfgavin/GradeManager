@@ -20,7 +20,7 @@ public class AssignmentQueries {
 		PreparedStatement pstmt2 = null;
 		ResultSet rs2 = null;
 		try {
-			connection = DriverManager.getConnection(DBInfo.URL, DBInfo.USER, DBInfo.PASSWORD);
+			connect();
 			pstmt = connection.prepareStatement("SELECT * FROM Assignment WHERE courseid = " + courseid);
 			rs = pstmt.executeQuery();
 
@@ -67,7 +67,7 @@ public class AssignmentQueries {
 		PreparedStatement pstmt2 = null;
 		ResultSet rs2 = null;
 		try {
-			connection = DriverManager.getConnection(DBInfo.URL, DBInfo.USER, DBInfo.PASSWORD);
+			connect();
 			pstmt = connection.prepareStatement("SELECT * FROM Assignment WHERE courseid = " + courseid);
 			rs = pstmt.executeQuery();
 
@@ -117,7 +117,7 @@ public class AssignmentQueries {
 	 */
 	public static void createAssignment(int courseid, String title) {
 		try {
-			connection = DriverManager.getConnection(DBInfo.URL, DBInfo.USER, DBInfo.PASSWORD);
+			connect();
 			pstmt = connection.prepareStatement(
 					"INSERT INTO Assignment (courseid, title) VALUES (?, ?)");
 			pstmt.setInt(1, courseid);
@@ -170,7 +170,7 @@ public class AssignmentQueries {
 	public static void deleteAssignment(int assignmentid)
 	{
 		try {
-			connection = DriverManager.getConnection(DBInfo.URL, DBInfo.USER, DBInfo.PASSWORD);
+			connect();
 			pstmt = connection
 					.prepareStatement("DELETE FROM Assignment WHERE assignmentid = " + assignmentid);
 			pstmt.executeUpdate();
@@ -185,7 +185,7 @@ public class AssignmentQueries {
 	public static void gradeAssignment(int studentid, int assignmentid, int grade)
 	{
 		try {
-			connection = DriverManager.getConnection(DBInfo.URL, DBInfo.USER, DBInfo.PASSWORD);
+			connect();
 			pstmt = connection
 					.prepareStatement("UPDATE StudentAssignment SET grade = " + grade 
 							+ " WHERE assignmentid = " + assignmentid + " AND studentid = " + studentid);
@@ -197,6 +197,11 @@ public class AssignmentQueries {
 			closeConnection();
 		}
 	}
+        private static void connect() throws SQLException
+        {
+            //connection = DriverManager.getConnection(DBInfo.URL, DBInfo.USER, DBInfo.PASSWORD);
+            connection = DataSource.getInstance().getConnection();
+        }
 	
 	private static void closeConnection() {
 		try {

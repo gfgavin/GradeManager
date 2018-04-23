@@ -18,7 +18,7 @@ public class CourseQueries {
 	public static ArrayList<Course> getAllCourses() {
 		ArrayList<Course> courselist = new ArrayList<Course>();
 		try {
-			connection = DriverManager.getConnection(DBInfo.URL, DBInfo.USER, DBInfo.PASSWORD);
+			connect();
 			pstmt = connection.prepareStatement("SELECT * FROM Course");
 			rs = pstmt.executeQuery();
 
@@ -47,7 +47,7 @@ public class CourseQueries {
 	public static ArrayList<Course> getCoursesForTeacher(int teacherID) {
 		ArrayList<Course> courselist = new ArrayList<Course>();
 		try {
-			connection = DriverManager.getConnection(DBInfo.URL, DBInfo.USER, DBInfo.PASSWORD);
+			connect();
 			pstmt = connection.prepareStatement("SELECT * FROM Course WHERE teacherid = " + teacherID);
 			rs = pstmt.executeQuery();
 
@@ -79,7 +79,7 @@ public class CourseQueries {
 		PreparedStatement pstmt2 = null;
 		ResultSet rs2 = null;
 		try {
-			connection = DriverManager.getConnection(DBInfo.URL, DBInfo.USER, DBInfo.PASSWORD);
+			connect();
 			pstmt = connection.prepareStatement("SELECT * FROM StudentCourse WHERE studentid = " + studentid);
 			rs = pstmt.executeQuery();
 
@@ -115,7 +115,7 @@ public class CourseQueries {
                 PreparedStatement pstmt2 = null;
 		ResultSet rs2 = null;   
 		try {
-			connection = DriverManager.getConnection(DBInfo.URL, DBInfo.USER, DBInfo.PASSWORD);
+			connect();
 			pstmt = connection.prepareStatement("SELECT * FROM StudentCourse WHERE courseid = " + courseid);
 			rs = pstmt.executeQuery();
 
@@ -147,6 +147,12 @@ public class CourseQueries {
 		}
 		return studentlist;
 	}
+        
+        private static void connect() throws SQLException
+        {
+            //connection = DriverManager.getConnection(DBInfo.URL, DBInfo.USER, DBInfo.PASSWORD);
+            connection = DataSource.getInstance().getConnection();
+        }
 
 	private static void closeConnection() {
 		try {

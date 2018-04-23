@@ -17,7 +17,7 @@ public class TeacherQueries {
 	public static ArrayList<Teacher> getAllTeachers() {
 		ArrayList<Teacher> teacherlist = new ArrayList<Teacher>();
 		try {
-			connection = DriverManager.getConnection(DBInfo.URL, DBInfo.USER, DBInfo.PASSWORD);
+			connect();
 			pstmt = connection.prepareStatement("SELECT * FROM Teacher");
 			rs = pstmt.executeQuery();
 
@@ -42,7 +42,7 @@ public class TeacherQueries {
 	public static Teacher getTeacher(String username) {
 		Teacher teacher = new Teacher();
 		try {
-			connection = DriverManager.getConnection(DBInfo.URL, DBInfo.USER, DBInfo.PASSWORD);
+			connect();
 			pstmt = connection.prepareStatement("SELECT * FROM Teacher WHERE userlogin  = '" + username + "'");
 			rs = pstmt.executeQuery();
 
@@ -65,7 +65,7 @@ public class TeacherQueries {
 	public static Teacher getTeacher(int teacherid) {
 		Teacher teacher = new Teacher();
 		try {
-			connection = DriverManager.getConnection(DBInfo.URL, DBInfo.USER, DBInfo.PASSWORD);
+			connect();
 			pstmt = connection.prepareStatement("SELECT * FROM Teacher WHERE teacherid  = " + teacherid);
 			rs = pstmt.executeQuery();
 
@@ -85,6 +85,12 @@ public class TeacherQueries {
 		return teacher;
 	}
 
+        private static void connect() throws SQLException
+        {
+            //connection = DriverManager.getConnection(DBInfo.URL, DBInfo.USER, DBInfo.PASSWORD);
+            connection = DataSource.getInstance().getConnection();
+        }
+        
 	private static void closeConnection() {
 		try {
 			rs.close();
