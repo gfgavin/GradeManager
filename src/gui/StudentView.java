@@ -59,11 +59,11 @@ public class StudentView extends javax.swing.JFrame {
         teacherLabel = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         gradeTable = new javax.swing.JTable();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        gradeTable = new javax.swing.JTable();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        gradeTable1 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Electronic Assignment And Attendance Guide");
+        setTitle("Electronic Assignment And Attendance Guide (Student)");
         setBackground(new java.awt.Color(102, 255, 255));
 
         jPanel2.setBackground(new java.awt.Color(102, 255, 255));
@@ -220,9 +220,9 @@ public class StudentView extends javax.swing.JFrame {
         ));
         jScrollPane2.setViewportView(gradeTable);
 
-        jScrollPane2.setBackground(new java.awt.Color(102, 255, 255));
+        jScrollPane3.setBackground(new java.awt.Color(102, 255, 255));
 
-        gradeTable.setModel(new javax.swing.table.DefaultTableModel(
+        gradeTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
                 {null, null},
@@ -250,7 +250,7 @@ public class StudentView extends javax.swing.JFrame {
                 "Assignment", "Grade"
             }
         ));
-        jScrollPane2.setViewportView(gradeTable);
+        jScrollPane3.setViewportView(gradeTable1);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -392,11 +392,13 @@ public class StudentView extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel courseLabel;
     private javax.swing.JTable gradeTable;
+    private javax.swing.JTable gradeTable1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JButton logoutButton;
     private javax.swing.JTable studentClassTable;

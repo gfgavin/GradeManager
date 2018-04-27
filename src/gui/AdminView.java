@@ -126,7 +126,7 @@ public class AdminView extends javax.swing.JFrame {
         removeTeacherFromClass = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Electronic Assignment And Attendance Guide");
+        setTitle("Electronic Assignment And Attendance Guide (Administrator)");
         setPreferredSize(new java.awt.Dimension(1200, 700));
 
         jPanel2.setBackground(new java.awt.Color(102, 255, 255));

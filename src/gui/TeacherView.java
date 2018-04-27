@@ -72,7 +72,7 @@ public class TeacherView extends javax.swing.JFrame {
         assignmentLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Electronic Assignment And Attendance Guide");
+        setTitle("Electronic Assignment And Attendance Guide (Teacher)");
         setBackground(new java.awt.Color(102, 255, 255));
         setPreferredSize(new java.awt.Dimension(970, 700));
         setSize(new java.awt.Dimension(970, 700));
